@@ -1,0 +1,450 @@
+---
+description: 代码格式化规范和工具配置
+alwaysApply: true
+---
+
+# 代码格式化规范
+
+## 通用格式化规则
+
+### 缩进（Indentation）
+
+- **标准**：使用空格而非 Tab 字符
+- **JavaScript/TypeScript/JSON/YAML**：2 个空格
+- **Python**：4 个空格
+- **Go**：Tab 字符（由 gofmt 自动处理）
+- **Java/C/C++**：4 个空格
+- **HTML/CSS**：2 个空格
+- **Markdown**：2 个空格
+
+### 行长度（Line Length）
+
+- **标准**：每行代码不超过 80 或 120 个字符
+- **推荐**：80 个字符（便于阅读和代码审查）
+- **例外**：URL、长字符串、导入语句可以超过限制
+- **处理方式**：超长行应合理换行，保持可读性
+
+### 空行（Blank Lines）
+
+- **文件末尾**：保留一个空行（符合 POSIX 标准）
+- **函数/方法之间**：至少一个空行
+- **类定义之间**：至少两个空行
+- **逻辑块之间**：根据上下文添加空行，提高可读性
+- **导入语句**：按类型分组，组之间用空行分隔
+
+### 空格使用（Whitespace）
+
+- **运算符前后**：添加空格（如 `a + b`，而非 `a+b`）
+- **逗号后**：添加空格（如 `a, b, c`）
+- **关键字后**：添加空格（如 `if (condition)`）
+- **函数调用**：函数名和括号之间不添加空格（如 `func()`）
+- **数组/对象访问**：方括号内不添加空格（如 `arr[0]`）
+
+### 行尾符（Line Endings）
+
+- **标准**：统一使用 LF（Line Feed，`\n`）
+- **原因**：跨平台兼容性，避免 Git 差异问题
+- **配置**：在 `.gitattributes` 中设置 `* text=auto eol=lf`
+
+### 文件编码（File Encoding）
+
+- **标准**：统一使用 UTF-8 编码
+- **原因**：支持多语言字符，跨平台兼容性好
+- **BOM**：不使用 BOM（Byte Order Mark）
+
+### 尾随空白（Trailing Whitespace）
+
+- **规则**：删除行尾空白字符
+- **原因**：避免不必要的 Git 差异，保持代码整洁
+
+## 语言特定格式化规则
+
+### JavaScript/TypeScript
+
+#### JavaScript/TypeScript 工具推荐
+
+- **Prettier**：代码格式化工具（推荐）
+- **ESLint**：代码质量检查工具
+- **配置优先级**：Prettier > ESLint（格式化相关规则）
+
+#### Prettier 配置示例
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "bracketSpacing": true,
+  "jsxSingleQuote": false
+}
+```
+
+#### JavaScript/TypeScript 格式化规则
+
+- **分号**：语句末尾使用分号
+- **引号**：字符串使用单引号，JSX 使用双引号
+- **尾随逗号**：对象和数组最后一个元素后添加逗号（ES5 兼容）
+- **箭头函数**：单参数时省略括号
+- **对象大括号**：对象字面量大括号内添加空格
+
+### Python
+
+#### Python 工具推荐
+
+- **Black**：代码格式化工具（推荐，不可配置）
+- **autopep8**：PEP 8 格式化工具
+- **isort**：导入语句排序工具
+- **flake8**：代码质量检查工具
+
+#### Black 配置示例
+
+```toml
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+```
+
+#### Python PEP 8 格式化规则
+
+- **缩进**：4 个空格
+- **行长度**：最大 79 个字符（Black 默认 88）
+- **导入语句**：按标准库、第三方库、本地库分组
+- **命名规范**：
+  - 函数/变量：`snake_case`
+  - 类名：`PascalCase`
+  - 常量：`UPPER_SNAKE_CASE`
+  - 私有：`_single_leading_underscore`
+
+### Go
+
+#### Go 工具推荐
+
+- **gofmt**：官方格式化工具（必须使用）
+- **goimports**：自动管理导入语句（推荐）
+- **golangci-lint**：代码质量检查工具
+
+#### Go 格式化规则
+
+- **缩进**：使用 Tab 字符（gofmt 自动处理）
+- **行长度**：无硬性限制，但建议不超过 100 个字符
+- **导入语句**：按标准库、第三方库分组，组之间用空行分隔
+- **命名规范**：
+  - 导出：首字母大写
+  - 非导出：首字母小写
+  - 接口：通常以 `er` 结尾
+
+### Java
+
+#### Java 工具推荐
+
+- **Google Java Format**：代码格式化工具
+- **Checkstyle**：代码风格检查工具
+- **Spotless**：Gradle/Maven 插件
+
+#### Java 格式化规则
+
+- **缩进**：4 个空格
+- **行长度**：100 个字符
+- **大括号**：左大括号不换行（Egyptian style）
+- **命名规范**：
+  - 类名：`PascalCase`
+  - 方法/变量：`camelCase`
+  - 常量：`UPPER_SNAKE_CASE`
+
+### HTML/CSS
+
+#### HTML/CSS 工具推荐
+
+- **Prettier**：HTML/CSS 格式化工具（推荐）
+- **stylelint**：CSS 代码质量检查工具
+
+#### HTML/CSS 格式化规则
+
+- **缩进**：2 个空格
+- **属性换行**：每个属性一行
+- **引号**：HTML 属性使用双引号
+- **CSS 选择器**：每个选择器一行
+- **CSS 属性**：按字母顺序排序（可选）
+
+### Markdown
+
+#### Markdown 工具推荐
+
+- **Prettier**：Markdown 格式化工具（推荐）
+- **markdownlint**：Markdown 代码质量检查工具
+
+#### Markdown 格式化规则
+
+- **行长度**：无硬性限制，但建议不超过 80 个字符
+- **列表**：使用 `-` 而非 `*`
+- **标题**：使用 `#` 而非下划线
+- **代码块**：指定语言类型
+- **链接**：使用引用式链接（长链接时）
+
+## 自动格式化配置
+
+### 编辑器配置
+
+#### VS Code / Cursor
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
+}
+```
+
+### Git Hooks
+
+#### pre-commit Hook
+
+使用 `husky` 和 `lint-staged` 在提交前自动格式化：
+
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.py": [
+      "black",
+      "isort",
+      "git add"
+    ],
+    "*.go": [
+      "gofmt -w",
+      "goimports -w",
+      "git add"
+    ]
+  }
+}
+```
+
+### CI/CD 集成
+
+在 CI/CD 流程中添加格式化检查：
+
+```yaml
+# GitHub Actions 示例
+- name: Check code formatting
+  run: |
+    npm run format:check
+    black --check .
+    gofmt -l . | grep -q . && exit 1 || exit 0
+```
+
+## 格式化工具配置
+
+### Prettier 配置文件
+
+创建 `.prettierrc` 或 `prettier.config.js`：
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "bracketSpacing": true
+}
+```
+
+创建 `.prettierignore`：
+
+```text
+node_modules
+dist
+build
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+```
+
+### ESLint 配置（与 Prettier 集成）
+
+```json
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+```
+
+### Black 配置（Python）
+
+创建 `pyproject.toml`：
+
+```toml
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+```
+
+### gofmt 配置（Go）
+
+Go 使用官方 `gofmt`，无需配置文件。使用 `goimports` 管理导入：
+
+```bash
+go install golang.org/x/tools/cmd/goimports@latest
+```
+
+## 格式化检查流程
+
+### 开发阶段
+
+1. **编辑器自动格式化**：保存时自动格式化（`formatOnSave: true`）
+2. **手动格式化**：使用编辑器命令格式化整个文件或选中代码
+3. **批量格式化**：使用命令行工具格式化整个项目
+
+### 提交前检查
+
+1. **Git Hooks**：使用 pre-commit hook 自动格式化
+2. **手动检查**：运行格式化检查命令
+3. **修复问题**：自动修复或手动修复格式化问题
+
+### CI/CD 检查
+
+1. **自动化检查**：在 CI/CD 流程中运行格式化检查
+2. **失败处理**：格式化检查失败时阻止合并
+3. **自动修复**：可选地自动修复并提交格式化更改
+
+## 格式化命令
+
+### JavaScript/TypeScript 格式化命令
+
+```bash
+# 格式化所有文件
+npx prettier --write "**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+
+# 检查格式化
+npx prettier --check "**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+```
+
+### Python 格式化命令
+
+```bash
+# 格式化所有文件
+black .
+
+# 检查格式化
+black --check .
+
+# 格式化导入语句
+isort .
+```
+
+### Go 格式化命令
+
+```bash
+# 格式化所有文件
+gofmt -w .
+
+# 格式化并管理导入
+goimports -w .
+
+# 检查格式化
+gofmt -l . | grep -q . && echo "需要格式化" || echo "格式正确"
+```
+
+## 格式化最佳实践
+
+### 1. 统一配置
+
+- 在项目根目录创建格式化配置文件
+- 使用版本控制管理配置文件
+- 确保团队成员使用相同的配置
+
+### 2. 自动化
+
+- 启用编辑器自动格式化
+- 使用 Git Hooks 在提交前格式化
+- 在 CI/CD 中检查格式化
+
+### 3. 代码审查
+
+- 代码审查时关注格式化问题
+- 使用自动化工具减少人工检查
+- 保持格式化规则的严格执行
+
+### 4. 渐进式改进
+
+- 新代码严格遵循格式化规则
+- 旧代码逐步改进，避免大规模重构
+- 使用工具自动修复格式化问题
+
+### 5. 文档化
+
+- 在项目文档中说明格式化规则
+- 提供格式化工具安装和使用指南
+- 记录格式化相关的常见问题
+
+## AI 助手行为规范
+
+### 代码生成时
+
+- **自动格式化**：生成的代码必须符合项目格式化规范
+- **使用工具**：优先使用项目配置的格式化工具
+- **检查格式**：生成代码后检查并修复格式问题
+
+### 代码修改时
+
+- **保持格式**：修改代码时保持原有格式化风格
+- **统一格式**：确保修改后的代码符合项目规范
+- **批量格式化**：大规模修改后运行格式化工具
+
+### 格式化工具配置规范
+
+- **遵循项目配置**：使用项目已有的格式化工具配置
+- **不修改配置**：除非必要，不修改格式化工具配置
+- **文档更新**：格式化规则变更时更新相关文档

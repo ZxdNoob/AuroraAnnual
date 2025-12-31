@@ -1,0 +1,30 @@
+---
+description: 技术栈选择建议
+alwaysApply: true
+---
+
+# 技术栈建议
+
+## 核心原则
+
+**所有子项目必须采用业界顶级全栈技术架构**，详细规范请参考 `fullstack-architecture.mdc`。
+
+## 基本要求
+
+- 根据子项目需求选择合适的技术栈
+- **必须优先使用 S 级（顶级）技术栈**
+- 优先使用成熟稳定的技术方案
+- 保持技术栈的多样性和学习价值
+- 确保技术栈具备高性能、可扩展性、可维护性
+
+## 快速参考
+
+- **前端**：React（最新稳定版本）/ Vue（最新稳定版本）/ Next.js（最新稳定版本）（TypeScript 必须）
+  - **React 最新稳定版本**（截至 2025-12-31 23:22:08）：**19.2**（2025年10月1日发布）
+  - **Vue 最新稳定版本**（截至 2025-12-31 23:22:08）：**3.6**（2025年7月发布）
+- **后端**：NestJS / FastAPI / Spring Boot 3 / Gin（类型安全语言）
+- **数据库**：PostgreSQL（推荐）/ MySQL 8+ / MongoDB
+- **基础设施**：Docker（必须）+ Kubernetes / Vercel / Railway
+- **CI/CD**：GitHub Actions（推荐）/ GitLab CI
+
+详细的技术栈规范和选型标准请查看 `fullstack-architecture.mdc` 文件。

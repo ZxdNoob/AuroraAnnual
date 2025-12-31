@@ -1,0 +1,335 @@
+{
+  // ============================================
+  // 编辑器基础设置
+  // ============================================
+  
+  // 编辑器字体大小（像素）
+  "editor.fontSize": 14,
+  
+  // 编辑器字体族，按优先级排列（如果第一个字体不可用，会尝试下一个）
+  "editor.fontFamily": "JetBrains Mono, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
+  
+  // Tab 键插入的空格数
+  "editor.tabSize": 2,
+  
+  // 使用空格代替 Tab 字符
+  "editor.insertSpaces": true,
+  
+  // 禁用自动检测文件缩进（使用上面设置的 tabSize）
+  "editor.detectIndentation": false,
+  
+  // 启用自动换行（当行长度超过编辑器宽度时自动换行）
+  "editor.wordWrap": "on",
+  
+  // 启用代码缩略图（右侧的小地图）
+  "editor.minimap.enabled": true,
+  
+  // 保存文件时自动格式化代码
+  "editor.formatOnSave": true,
+  
+  // 保存文件时执行的代码操作
+  "editor.codeActionsOnSave": {
+    // 自动修复所有可修复的问题
+    "source.fixAll": "explicit",
+    // 自动整理和排序导入语句
+    "source.organizeImports": "explicit"
+  },
+  
+  // 在编辑器中显示标尺线（第 80 和 120 列）
+  "editor.rulers": [80, 120],
+  
+  // 启用括号配对着色（不同层级的括号显示不同颜色）
+  "editor.bracketPairColorization.enabled": true,
+  
+  // 显示括号配对引导线（帮助识别匹配的括号）
+  "editor.guides.bracketPairs": "active",
+  
+  // 代码建议选择策略：选择第一个建议
+  "editor.suggestSelection": "first",
+  
+  // 代码片段建议位置：显示在建议列表顶部
+  "editor.snippetSuggestions": "top",
+  
+  // 禁用基于单词的代码建议（提高性能）
+  "editor.wordBasedSuggestions": "off",
+  
+  // 启用内联代码建议（AI 自动完成）
+  "editor.inlineSuggest.enabled": true,
+
+  // ============================================
+  // 文件相关设置
+  // ============================================
+  
+  // 自动保存策略：延迟保存（在指定延迟后保存）
+  "files.autoSave": "afterDelay",
+  
+  // 自动保存延迟时间（毫秒）
+  "files.autoSaveDelay": 1000,
+  
+  // 保存时自动删除行尾空白字符
+  "files.trimTrailingWhitespace": true,
+  
+  // 保存时在文件末尾插入换行符（如果文件末尾没有换行符）
+  "files.insertFinalNewline": true,
+  
+  // 保存时删除文件末尾多余的换行符
+  "files.trimFinalNewlines": true,
+  
+  // 在文件资源管理器中排除的文件和目录（不会显示在侧边栏）
+  "files.exclude": {
+    // Git 目录
+    "**/.git": true,
+    // macOS 系统文件
+    "**/.DS_Store": true,
+    // Node.js 依赖目录
+    "**/node_modules": true,
+    // 缓存目录
+    "**/.cache": true,
+    // 构建输出目录
+    "**/dist": true,
+    // 构建输出目录
+    "**/build": true
+  },
+  
+  // 文件监视器排除的目录（不监视这些目录的变化，提高性能）
+  "files.watcherExclude": {
+    // Git 对象目录
+    "**/.git/objects/**": true,
+    // Git 子树缓存
+    "**/.git/subtree-cache/**": true,
+    // Node.js 依赖目录
+    "**/node_modules/**": true,
+    // 缓存目录
+    "**/.cache/**": true,
+    // 构建输出目录
+    "**/dist/**": true,
+    // 构建输出目录
+    "**/build/**": true
+  },
+
+  // ============================================
+  // AI 相关设置
+  // ============================================
+  
+  // 启用 Cursor AI 功能
+  "cursor.ai.enabled": true,
+  
+  // 启用 AI 自动完成功能
+  "cursor.ai.autoComplete": true,
+  
+  // 启用 AI 代码建议
+  "cursor.ai.suggestions": true,
+  
+  // AI 模型选择：auto（自动选择最佳模型）或指定模型名称（如 "gpt-4o"）
+  "cursor.ai.model": "auto",
+  
+  // AI 生成的最大 token 数量（影响生成内容的长度）
+  "cursor.ai.maxTokens": 4096,
+  
+  // AI 温度参数（0-1，值越高越随机，值越低越确定）
+  "cursor.ai.temperature": 0.7,
+
+  // ============================================
+  // 终端设置
+  // ============================================
+  
+  // 终端字体大小（像素）
+  "terminal.integrated.fontSize": 13,
+  
+  // 终端字体族（支持 Nerd Fonts 图标字体）
+  "terminal.integrated.fontFamily": "MesloLGS NF, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
+  
+  // 终端光标闪烁
+  "terminal.integrated.cursorBlinking": true,
+  
+  // 终端光标样式：线条样式
+  "terminal.integrated.cursorStyle": "line",
+  
+  // 终端滚动历史行数（保留的历史输出行数）
+  "terminal.integrated.scrollback": 10000,
+
+  // ============================================
+  // 搜索设置
+  // ============================================
+  
+  // 搜索时排除的文件和目录（不会在搜索结果中显示）
+  "search.exclude": {
+    // Node.js 依赖目录
+    "**/node_modules": true,
+    // 构建输出目录
+    "**/dist": true,
+    // 构建输出目录
+    "**/build": true,
+    // Git 目录
+    "**/.git": true,
+    // 缓存目录
+    "**/.cache": true,
+    // 包锁定文件
+    "**/package-lock.json": true,
+    // Yarn 锁定文件
+    "**/yarn.lock": true,
+    // pnpm 锁定文件
+    "**/pnpm-lock.yaml": true
+  },
+
+  // ============================================
+  // Markdown 设置
+  // ============================================
+  
+  // Markdown 预览字体大小（像素）
+  "markdown.preview.fontSize": 14,
+  
+  // Markdown 预览行高（相对于字体大小的倍数）
+  "markdown.preview.lineHeight": 1.6,
+  
+  // Markdown 预览中单个换行符也会换行（GitHub 风格）
+  "markdown.preview.breaks": true,
+
+  // ============================================
+  // 语言特定设置
+  // ============================================
+  
+  // JavaScript 文件设置
+  "[javascript]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2
+  },
+  
+  // TypeScript 文件设置
+  "[typescript]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2
+  },
+  
+  // JSON 文件设置
+  "[json]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2
+  },
+  
+  // JSONC 文件设置（带注释的 JSON）
+  "[jsonc]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2
+  },
+  
+  // Markdown 文件设置
+  "[markdown]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2,
+    // 启用自动换行
+    "editor.wordWrap": "on",
+    // 快速建议设置（在 Markdown 中禁用代码提示，避免干扰写作）
+    "editor.quickSuggestions": {
+      // 注释中不显示建议
+      "comments": "off",
+      // 字符串中不显示建议
+      "strings": "off",
+      // 其他位置不显示建议
+      "other": "off"
+    }
+  },
+  
+  // YAML 文件设置
+  "[yaml]": {
+    // 默认格式化工具：Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Tab 大小：2 个空格
+    "editor.tabSize": 2
+  },
+  
+  // Python 文件设置
+  "[python]": {
+    // Tab 大小：4 个空格（Python 标准）
+    "editor.tabSize": 4,
+    // 使用空格代替 Tab
+    "editor.insertSpaces": true
+  },
+
+  // ============================================
+  // Git 设置
+  // ============================================
+  
+  // 启用智能提交（自动暂存所有更改）
+  "git.enableSmartCommit": true,
+  
+  // 禁用同步前确认提示
+  "git.confirmSync": false,
+  
+  // 自动获取远程更新（定期从远程仓库获取最新更改）
+  "git.autofetch": true,
+  
+  // 忽略 Git 忽略文件数量限制警告
+  "git.ignoreLimitWarning": true,
+
+  // ============================================
+  // 工作区设置
+  // ============================================
+  
+  // 启用编辑器预览模式（单击文件时在预览模式下打开）
+  "workbench.editor.enablePreview": true,
+  
+  // 从快速打开（Ctrl/Cmd+P）打开的文件不在预览模式下打开
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  
+  // 启动时打开的编辑器：新建未命名文件
+  "workbench.startupEditor": "newUntitledFile",
+  
+  // 文件资源管理器删除文件时不显示确认对话框
+  "explorer.confirmDelete": false,
+  
+  // 文件资源管理器拖放文件时不显示确认对话框
+  "explorer.confirmDragAndDrop": false,
+  
+  // 不忽略扩展推荐提示
+  "extensions.ignoreRecommendations": false,
+
+  // ============================================
+  // 代码提示和自动完成
+  // ============================================
+  
+  // 快速建议设置（何时显示代码建议）
+  "editor.quickSuggestions": {
+    // 其他位置：启用建议
+    "other": "on",
+    // 注释中：禁用建议
+    "comments": "off",
+    // 字符串中：启用建议
+    "strings": "on"
+  },
+  
+  // 输入提交字符时接受建议（如输入分号时自动完成）
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  
+  // 按 Enter 键时接受建议
+  "editor.acceptSuggestionOnEnter": "on",
+  
+  // 输入触发字符时显示建议（如输入点号时显示对象属性）
+  "editor.suggestOnTriggerCharacters": true,
+  
+  // 启用 Tab 键补全（按 Tab 键可以补全代码）
+  "editor.tabCompletion": "on",
+  
+  // 启用建议位置奖励（优先显示当前位置附近的建议）
+  "editor.suggest.localityBonus": true,
+
+  // ============================================
+  // 文件编码设置
+  // ============================================
+  
+  // 文件编码：UTF-8（支持中文等多语言字符）
+  "files.encoding": "utf8",
+  
+  // 行尾符：LF（Unix/Linux/macOS 风格，推荐用于跨平台兼容性）
+  "files.eol": "\n"
+}

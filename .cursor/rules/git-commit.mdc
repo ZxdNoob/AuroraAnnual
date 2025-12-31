@@ -1,0 +1,184 @@
+---
+description: Git 提交规范和 Commit 消息格式
+alwaysApply: true
+---
+
+# Git 提交规范
+
+## 版本控制
+- 提交信息使用中文，清晰描述变更内容
+- 遵循语义化提交信息格式（如：新增、修复、优化等）
+- 每次提交保持原子性，一个提交只做一件事
+- **禁止擅自提交**：AI 助手不得擅自执行 git commit 或 git push 等提交操作，必须在用户明确发出提交相关指令后才能执行
+
+## Commit 规范
+- **提交信息格式**：`emoji + type + (scope): + description`
+  - `emoji`：表情符号，用于快速识别提交类型
+  - `type`：提交类型（必填）
+  - `(scope)`：提交范围或模块名称（可选）
+  - `description`：提交描述信息，使用中文清晰描述变更内容
+
+- **核心提交类型（Conventional Commits 标准）**：
+  | Emoji | 提交类型 | 说明 | 示例 |
+  |-------|---------|------|------|
+  | ✨ | feat | 新功能 | `✨ feat(auth): 新增用户登录功能` |
+  | 🐛 | fix | 修复 Bug | `🐛 fix(api): 修复数据查询接口超时问题` |
+  | 📝 | docs | 文档更新 | `📝 docs(readme): 更新项目安装说明` |
+  | 🎨 | style | 代码格式调整（不影响代码运行） | `🎨 style(component): 调整代码缩进格式` |
+  | ♻️ | refactor | 代码重构 | `♻️ refactor(utils): 重构工具函数结构` |
+  | ⚡ | perf | 性能优化 | `⚡ perf(database): 优化数据库查询性能` |
+  | ✅ | test | 测试相关 | `✅ test(api): 新增接口单元测试` |
+  | 🔧 | chore | 构建过程或辅助工具的变动 | `🔧 chore(deps): 更新依赖包版本` |
+  | 🔨 | build | 构建系统或外部依赖的变更 | `🔨 build(ci): 更新 CI/CD 配置` |
+  | 👷 | ci | CI/CD 相关 | `👷 ci(github): 配置 GitHub Actions` |
+  | 🔄 | revert | 回滚提交 | `🔄 revert: 回滚上一次提交` |
+  | 🚀 | release | 发布新版本 | `🚀 release: 发布 v1.0.0 版本` |
+
+- **扩展提交类型（常用场景）**：
+  | Emoji | 提交类型 | 说明 | 示例 |
+  |-------|---------|------|------|
+  | 🎉 | init | 初始化项目 | `🎉 init: 初始化项目结构` |
+  | 🚀 | deploy | 部署相关 | `🚀 deploy(prod): 发布生产环境版本` |
+  | 🔥 | remove | 删除代码或文件 | `🔥 remove(legacy): 删除废弃的旧代码` |
+  | 🔀 | merge | 合并分支 | `🔀 merge(dev): 合并开发分支到主分支` |
+  | 📦 | package | 打包相关 | `📦 package(build): 更新打包配置` |
+  | 🏗️ | structure | 项目结构变更 | `🏗️ structure: 重构项目目录结构` |
+  | 🔒 | security | 安全相关 | `🔒 security(auth): 修复身份验证安全漏洞` |
+  | 🐳 | docker | Docker 相关 | `🐳 docker: 更新 Docker 镜像配置` |
+  | 📱 | mobile | 移动端相关 | `📱 mobile(ios): 修复 iOS 端显示问题` |
+  | 💄 | ui | UI 界面相关 | `💄 ui(button): 优化按钮样式设计` |
+  | 🌐 | i18n | 国际化相关 | `🌐 i18n(zh): 新增中文语言包` |
+  | ⬆️ | upgrade | 升级依赖或工具 | `⬆️ upgrade(deps): 升级 React 到 18.0` |
+  | ⬇️ | downgrade | 降级依赖或工具 | `⬇️ downgrade(deps): 降级有问题的依赖版本` |
+  | 🔍 | search | 搜索功能相关 | `🔍 search: 新增全文搜索功能` |
+  | 🎯 | target | 目标或里程碑相关 | `🎯 target: 完成第一阶段开发目标` |
+  | 🚧 | wip | 工作进行中 | `🚧 wip(feature): 新功能开发中` |
+  | 💚 | ci-fix | 修复 CI 构建问题 | `💚 ci-fix: 修复 CI 构建失败问题` |
+  | 🐘 | database | 数据库相关 | `🐘 database(migration): 新增用户表迁移脚本` |
+  | 🏷️ | tag | 标签相关 | `🏷️ tag: 发布 v1.0.0 版本标签` |
+  | 📊 | analytics | 数据分析相关 | `📊 analytics: 新增用户行为统计` |
+  | 🔐 | auth | 认证授权相关 | `🔐 auth: 实现 OAuth2 登录` |
+  | 🎬 | begin | 开始某项工作 | `🎬 begin(feature): 开始开发新功能模块` |
+  | 🎪 | experiment | 实验性功能 | `🎪 experiment(ai): 实验性 AI 功能` |
+  | 🚨 | breaking | 破坏性变更 | `🚨 breaking(api): 重构 API 接口，不向后兼容` |
+  | 🛠️ | tool | 工具相关 | `🛠️ tool(eslint): 配置 ESLint 规则` |
+  | 🧪 | experiment | 实验性变更 | `🧪 experiment: 尝试新的技术方案` |
+  | 🎨 | design | 设计相关 | `🎨 design(ui): 更新 UI 设计规范` |
+  | 📸 | snapshot | 快照相关 | `📸 snapshot: 更新测试快照` |
+  | 📌 | pin | 锁定依赖版本 | `📌 pin(deps): 锁定依赖包版本` |
+  | 🗑️ | clean | 清理代码 | `🗑️ clean: 清理无用代码和注释` |
+  | 📋 | log | 日志相关 | `📋 log: 新增操作日志记录` |
+  | 🔔 | notification | 通知相关 | `🔔 notification: 新增消息推送功能` |
+  | 🌟 | star | 重要功能或亮点 | `🌟 star(feature): 实现核心功能模块` |
+  | 💡 | idea | 新想法或建议 | `💡 idea: 添加新的功能建议` |
+  | 🎁 | gift | 赠送功能或彩蛋 | `🎁 gift: 添加隐藏彩蛋功能` |
+  | 🐣 | egg | 彩蛋或隐藏功能 | `🐣 egg: 添加复活节彩蛋` |
+
+- **功能领域相关类型**：
+  | Emoji | 提交类型 | 说明 | 示例 |
+  |-------|---------|------|------|
+  | 🎮 | game | 游戏相关 | `🎮 game: 新增小游戏功能` |
+  | 🎵 | music | 音乐相关 | `🎵 music: 新增背景音乐功能` |
+  | 🎬 | video | 视频相关 | `🎬 video: 新增视频播放功能` |
+  | 📷 | image | 图片相关 | `📷 image: 优化图片加载性能` |
+  | 🗺️ | map | 地图相关 | `🗺️ map: 新增地图功能` |
+  | 🛒 | shopping | 购物相关 | `🛒 shopping: 新增购物车功能` |
+  | 💰 | money | 支付相关 | `💰 money: 集成支付功能` |
+  | 📧 | email | 邮件相关 | `📧 email: 新增邮件发送功能` |
+  | 💬 | comment | 评论相关 | `💬 comment: 新增评论功能` |
+  | 👥 | team | 团队协作相关 | `👥 team: 新增团队协作功能` |
+  | 🎓 | learn | 学习相关 | `🎓 learn: 新增学习资源` |
+  | 📚 | book | 文档或书籍相关 | `📚 book: 新增技术文档` |
+  | 🏆 | achievement | 成就相关 | `🏆 achievement: 新增成就系统` |
+  | 🎯 | goal | 目标相关 | `🎯 goal: 完成项目目标` |
+  | 🚦 | traffic | 流量或访问相关 | `🚦 traffic: 优化页面访问速度` |
+
+- **特殊场景类型**：
+  | Emoji | 提交类型 | 说明 | 示例 |
+  |-------|---------|------|------|
+  | 🎉 | celebrate | 庆祝或里程碑 | `🎉 celebrate: 项目里程碑达成` |
+  | 🎊 | confetti | 庆祝活动 | `🎊 confetti: 完成重要功能` |
+  | 🎈 | balloon | 轻松或娱乐功能 | `🎈 balloon: 新增娱乐功能` |
+  | 🎪 | tent | 临时或实验性 | `🎪 tent: 实验性功能测试` |
+  | 🎭 | mask | 伪装或隐藏功能 | `🎭 mask: 隐藏功能实现` |
+  | 🎨 | palette | 调色板或主题 | `🎨 palette: 新增主题切换功能` |
+  | 🎬 | clapper | 电影或视频 | `🎬 clapper: 视频功能优化` |
+  | 🎵 | note | 音乐或音频 | `🎵 note: 音频功能优化` |
+  | 🎮 | joystick | 游戏控制 | `🎮 joystick: 游戏控制优化` |
+  | 🎯 | dart | 精准目标 | `🎯 dart: 精准优化功能` |
+  | 🎁 | wrapped | 包装或发布 | `🎁 wrapped: 功能包装完成` |
+  | 🎉 | party | 庆祝活动 | `🎉 party: 重要功能完成` |
+  | 🎊 | sparkles | 亮点功能 | `🎊 sparkles: 新增亮点功能` |
+  | 🎈 | red_balloon | 特殊功能 | `🎈 red_balloon: 特殊功能实现` |
+  | 🎪 | circus_tent | 实验性功能 | `🎪 circus_tent: 实验性功能测试` |
+  | 🎭 | performing_arts | 表演或展示 | `🎭 performing_arts: 优化展示效果` |
+  | 🎨 | artist | 创意设计 | `🎨 artist: 创意设计优化` |
+  | 🎬 | movie_camera | 视频录制 | `🎬 movie_camera: 视频录制功能` |
+  | 🎵 | musical_note | 音乐播放 | `🎵 musical_note: 音乐播放优化` |
+  | 🎮 | video_game | 游戏功能 | `🎮 video_game: 游戏功能优化` |
+  | 🎯 | direct_hit | 精准命中 | `🎯 direct_hit: 精准优化` |
+  | 🎁 | gift_heart | 爱心礼物 | `🎁 gift_heart: 用户福利功能` |
+  | 🎉 | tada | 完成庆祝 | `🎉 tada: 功能完成庆祝` |
+  | 🎊 | confetti_ball | 庆祝活动 | `🎊 confetti_ball: 重要里程碑` |
+
+- **标准提交类型说明（Conventional Commits）**：
+  - `feat`: 新功能（feature）
+  - `fix`: 修复 Bug
+  - `docs`: 文档更新
+  - `style`: 代码格式调整（不影响代码运行，如空格、格式化、分号等）
+  - `refactor`: 代码重构（既不是新功能也不是修复 Bug）
+  - `perf`: 性能优化
+  - `test`: 测试相关（新增测试、修改测试等）
+  - `chore`: 构建过程或辅助工具的变动（如依赖管理、构建配置等）
+  - `build`: 构建系统或外部依赖的变更（如 webpack、npm 等）
+  - `ci`: CI/CD 配置和脚本的变更
+  - `revert`: 回滚之前的提交
+  - `release`: 发布新版本
+
+- **常用示例**：
+  - `✨ feat(auth): 新增用户登录功能`
+  - `🐛 fix(api): 修复数据查询接口超时问题`
+  - `📝 docs(readme): 更新项目安装说明`
+  - `🎨 style(component): 调整代码缩进格式`
+  - `♻️ refactor(utils): 重构工具函数结构`
+  - `⚡ perf(database): 优化数据库查询性能`
+  - `✅ test(api): 新增接口单元测试`
+  - `🔧 chore(deps): 更新依赖包版本`
+  - `🔨 build(ci): 更新 CI/CD 配置`
+  - `🚀 deploy(prod): 发布生产环境版本`
+  - `🔥 remove(legacy): 删除废弃的旧代码`
+  - `🎉 init: 初始化项目结构`
+  - `🔀 merge(dev): 合并开发分支到主分支`
+  - `👷 ci(github): 配置 GitHub Actions`
+  - `🏗️ structure: 重构项目目录结构`
+  - `🔒 security(auth): 修复身份验证安全漏洞`
+  - `🐳 docker: 更新 Docker 镜像配置`
+  - `📱 mobile(ios): 修复 iOS 端显示问题`
+  - `💄 ui(button): 优化按钮样式设计`
+  - `🌐 i18n(zh): 新增中文语言包`
+  - `⬆️ upgrade(deps): 升级 React 到 18.0`
+  - `⬇️ downgrade(deps): 降级有问题的依赖版本`
+  - `🔍 search: 新增全文搜索功能`
+  - `🎯 target: 完成第一阶段开发目标`
+  - `🚧 wip(feature): 新功能开发中`
+  - `💚 ci-fix: 修复 CI 构建失败问题`
+  - `🐘 database(migration): 新增用户表迁移脚本`
+  - `🏷️ tag: 发布 v1.0.0 版本标签`
+  - `📊 analytics: 新增用户行为统计`
+  - `🔐 auth: 实现 OAuth2 登录`
+  - `🎬 begin(feature): 开始开发新功能模块`
+  - `🎪 experiment(ai): 实验性 AI 功能`
+  - `🚨 breaking(api): 重构 API 接口，不向后兼容`
+  - `🛠️ tool(eslint): 配置 ESLint 规则`
+  - `🧪 experiment: 尝试新的技术方案`
+  - `🎨 design(ui): 更新 UI 设计规范`
+  - `📸 snapshot: 更新测试快照`
+  - `🔄 revert: 回滚上一次提交`
+  - `📌 pin(deps): 锁定依赖包版本`
+  - `🗑️ clean: 清理无用代码和注释`
+  - `📋 log: 新增操作日志记录`
+  - `🔔 notification: 新增消息推送功能`
+  - `🌟 star(feature): 实现核心功能模块`
+  - `💡 idea: 添加新的功能建议`
+  - `🎁 gift: 添加隐藏彩蛋功能`
+  - `🐣 egg: 添加复活节彩蛋`

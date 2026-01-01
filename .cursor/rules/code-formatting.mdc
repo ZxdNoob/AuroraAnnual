@@ -176,6 +176,13 @@ extend-exclude = '''
 
 - **Prettier**：HTML/CSS 格式化工具（推荐）
 - **stylelint**：CSS 代码质量检查工具
+- **Sass/SCSS**：SCSS 编译工具（`sass` 或 `node-sass`）
+- **Less**：Less 编译工具（`less`）
+- **Stylus**：Stylus 编译工具（`stylus`）
+
+#### CSS 预编译语言要求
+
+**重要**：所有项目必须使用 CSS 预编译语言（SCSS、Less 或 Stylus），不允许直接使用原生 CSS 文件。详细规范请参考 `code-style.mdc` 中的 "CSS 预编译语言规范" 章节。
 
 #### HTML/CSS 格式化规则
 
@@ -184,6 +191,32 @@ extend-exclude = '''
 - **引号**：HTML 属性使用双引号
 - **CSS 选择器**：每个选择器一行
 - **CSS 属性**：按字母顺序排序（可选）
+
+#### CSS 预编译语言格式化规则
+
+##### SCSS 格式化规则
+
+- **缩进**：2 个空格
+- **嵌套深度**：建议不超过 3 层
+- **变量命名**：使用 `$` 前缀，如 `$primary-color`
+- **混合（Mixin）命名**：使用 `@mixin` 定义，如 `@mixin flex-center`
+- **导入语句**：使用 `@import` 导入其他 SCSS 文件
+
+##### Less 格式化规则
+
+- **缩进**：2 个空格
+- **嵌套深度**：建议不超过 3 层
+- **变量命名**：使用 `@` 前缀，如 `@primary-color`
+- **混合（Mixin）命名**：使用 `.` 定义，如 `.flex-center()`
+- **导入语句**：使用 `@import` 导入其他 Less 文件
+
+##### Stylus 格式化规则
+
+- **缩进**：2 个空格（推荐使用空格而非 Tab）
+- **嵌套深度**：建议不超过 3 层
+- **变量命名**：使用 `$` 前缀，如 `$primary-color`
+- **混合（Mixin）命名**：使用函数形式，如 `flex-center()`
+- **导入语句**：使用 `@import` 导入其他 Stylus 文件
 
 ### Markdown
 
@@ -243,7 +276,7 @@ extend-exclude = '''
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "*.{js,jsx,ts,tsx,json,scss,less,styl,md}": [
       "prettier --write",
       "git add"
     ],
@@ -302,6 +335,9 @@ dist
 build
 *.min.js
 *.min.css
+*.min.scss
+*.min.less
+*.min.styl
 package-lock.json
 yarn.lock
 ```
@@ -364,11 +400,11 @@ go install golang.org/x/tools/cmd/goimports@latest
 ### JavaScript/TypeScript 格式化命令
 
 ```bash
-# 格式化所有文件
-npx prettier --write "**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+# 格式化所有文件（使用预编译语言，不包含原生 CSS）
+npx prettier --write "**/*.{js,jsx,ts,tsx,json,scss,less,styl,md}"
 
 # 检查格式化
-npx prettier --check "**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+npx prettier --check "**/*.{js,jsx,ts,tsx,json,scss,less,styl,md}"
 ```
 
 ### Python 格式化命令

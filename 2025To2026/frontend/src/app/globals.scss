@@ -1,0 +1,453 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * 全局样式文件
+ * 
+ * @description 定义全局样式、CSS变量、工具类和动画效果
+ * 采用现代化设计系统，包含完善的配色方案、间距系统、阴影系统和动画效果
+ */
+
+@layer base {
+  /**
+   * CSS变量定义 - 明亮主题
+   * 
+   * 使用HSL颜色格式，便于动态调整亮度和饱和度
+   * 设计原则：
+   * - 主色调：蓝紫色渐变（现代、专业、科技感）
+   * - 辅助色：丰富的渐变色系
+   * - 语义化颜色：成功、警告、错误等
+   */
+  :root {
+    /* ========== 基础颜色系统 ========== */
+    /* 背景色和前景色 */
+    --background: 0 0% 100%;                    /* 纯白色背景 */
+    --foreground: 240 10% 3.9%;                 /* 深灰色文字 */
+    
+    /* 卡片颜色 */
+    --card: 0 0% 100%;                          /* 白色卡片背景 */
+    --card-foreground: 240 10% 3.9%;            /* 卡片文字颜色 */
+    
+    /* 弹出层颜色 */
+    --popover: 0 0% 100%;                       /* 弹出层背景 */
+    --popover-foreground: 240 10% 3.9%;         /* 弹出层文字 */
+    
+    /* ========== 主题颜色系统 ========== */
+    /* 主色调：现代蓝紫色 */
+    --primary: 262 83% 58%;                     /* 主色调：紫蓝色 */
+    --primary-foreground: 0 0% 100%;            /* 主色调文字：白色 */
+    
+    /* 辅助色：柔和的蓝灰色 */
+    --secondary: 220 14.3% 95.9%;               /* 辅助色：浅灰蓝 */
+    --secondary-foreground: 220.9 39.3% 11%;    /* 辅助色文字：深蓝灰 */
+    
+    /* 柔和色：用于次要信息 */
+    --muted: 220 14.3% 95.9%;                   /* 柔和背景 */
+    --muted-foreground: 220 8.9% 46.1%;         /* 柔和文字：中灰色 */
+    
+    /* 强调色：用于高亮元素 */
+    --accent: 220 14.3% 95.9%;                  /* 强调背景 */
+    --accent-foreground: 220.9 39.3% 11%;       /* 强调文字 */
+    
+    /* 语义化颜色 */
+    --destructive: 0 84.2% 60.2%;               /* 错误/危险：红色 */
+    --destructive-foreground: 0 0% 98%;         /* 错误文字：白色 */
+    
+    /* ========== 边框和输入框 ========== */
+    --border: 220 13% 91%;                      /* 边框颜色：浅灰 */
+    --input: 220 13% 91%;                       /* 输入框边框 */
+    --ring: 262 83% 58%;                        /* 焦点环颜色：主色调 */
+    
+    /* ========== 圆角系统 ========== */
+    --radius: 0.75rem;                          /* 基础圆角：12px，现代化设计 */
+    
+    /* ========== 图表颜色 ========== */
+    --chart-1: 262 83% 58%;                     /* 图表颜色1：主色调 */
+    --chart-2: 173 80% 40%;                     /* 图表颜色2：青绿色 */
+    --chart-3: 197 37% 24%;                     /* 图表颜色3：深青色 */
+    --chart-4: 43 96% 56%;                      /* 图表颜色4：金黄色 */
+    --chart-5: 27 96% 61%;                      /* 图表颜色5：橙红色 */
+    
+    /* ========== 渐变系统 ========== */
+    /* 主渐变：紫蓝色渐变（现代、专业） */
+    --gradient-primary-start: 262 83% 58%;      /* 主渐变起始：紫蓝色 */
+    --gradient-primary-end: 280 100% 70%;       /* 主渐变结束：亮紫色 */
+    
+    /* 成功渐变：青蓝色渐变（清新、积极） */
+    --gradient-success-start: 173 80% 40%;      /* 成功渐变起始：青绿色 */
+    --gradient-success-end: 199 89% 48%;        /* 成功渐变结束：天蓝色 */
+    
+    /* 警告渐变：橙黄色渐变（温暖、提醒） */
+    --gradient-warning-start: 43 96% 56%;       /* 警告渐变起始：金黄色 */
+    --gradient-warning-end: 27 96% 61%;         /* 警告渐变结束：橙红色 */
+    
+    /* 危险渐变：红粉色渐变（警示、危险） */
+    --gradient-danger-start: 0 84.2% 60.2%;     /* 危险渐变起始：红色 */
+    --gradient-danger-end: 340 82% 52%;         /* 危险渐变结束：粉红色 */
+    
+    /* ========== 阴影系统 ========== */
+    /* 现代化阴影系统，使用柔和的阴影效果 */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);                    /* 极小阴影 */
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);            /* 大阴影 */
+    --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);          /* 内阴影 */
+    
+    /* 发光效果 */
+    --shadow-glow-primary: 0 0 20px hsl(262 83% 58% / 0.3);        /* 主色调发光 */
+    --shadow-glow-success: 0 0 20px hsl(173 80% 40% / 0.3);       /* 成功色发光 */
+  }
+
+  /**
+   * CSS变量定义 - 暗色主题
+   * 
+   * 暗色主题使用更深的背景和更亮的文字，减少视觉疲劳
+   */
+  .dark {
+    /* ========== 基础颜色系统 ========== */
+    --background: 240 10% 3.9%;                 /* 深色背景 */
+    --foreground: 0 0% 98%;                     /* 浅色文字 */
+    
+    --card: 240 10% 3.9%;                       /* 深色卡片 */
+    --card-foreground: 0 0% 98%;                /* 卡片浅色文字 */
+    
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* ========== 主题颜色系统 ========== */
+    --primary: 262 83% 58%;                     /* 主色调保持不变 */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 240 3.7% 15.9%;                /* 深色辅助背景 */
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;               /* 暗色主题下的错误色 */
+    --destructive-foreground: 0 0% 98%;
+    
+    /* ========== 边框和输入框 ========== */
+    --border: 240 3.7% 15.9%;                   /* 深色边框 */
+    --input: 240 3.7% 15.9%;
+    --ring: 262 83% 58%;
+    
+    /* ========== 图表颜色（暗色主题优化） ========== */
+    --chart-1: 262 83% 58%;
+    --chart-2: 173 80% 40%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 96% 56%;
+    --chart-5: 27 96% 61%;
+  }
+}
+
+/**
+ * 基础样式重置和优化
+ */
+@layer base {
+  /* 全局重置 */
+  * {
+    border-color: hsl(var(--border));           /* 统一边框颜色 */
+  }
+  
+  /* 主体样式 */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;  /* 启用连字和上下文替代 */
+    font-synthesis: none;                        /* 禁用字体合成 */
+    text-rendering: optimizeLegibility;          /* 优化文字渲染 */
+    -webkit-font-smoothing: antialiased;         /* macOS字体平滑 */
+    -moz-osx-font-smoothing: grayscale;          /* Firefox字体平滑 */
+  }
+}
+
+/**
+ * 工具类定义
+ * 
+ * 提供常用的样式组合，提高开发效率
+ */
+@layer utilities {
+  /* ========== 渐变背景 ========== */
+  /**
+   * 主渐变：紫蓝色渐变
+   * 用于主要操作按钮、重要卡片等
+   * 使用直接的HSL颜色值，确保渐变正确渲染
+   */
+  .gradient-primary {
+    background: linear-gradient(135deg, 
+      hsl(262, 83%, 58%) 0%, 
+      hsl(280, 100%, 70%) 100%
+    );
+  }
+  
+  /**
+   * 成功渐变：青蓝色渐变
+   * 用于成功状态、进度条等
+   */
+  .gradient-success {
+    background: linear-gradient(135deg, 
+      hsl(173, 80%, 40%) 0%, 
+      hsl(199, 89%, 48%) 100%
+    );
+  }
+  
+  /**
+   * 警告渐变：橙黄色渐变
+   * 用于警告状态、提醒等
+   */
+  .gradient-warning {
+    background: linear-gradient(135deg, 
+      hsl(43, 96%, 56%) 0%, 
+      hsl(27, 96%, 61%) 100%
+    );
+  }
+  
+  /**
+   * 危险渐变：红粉色渐变
+   * 用于错误状态、删除操作等
+   */
+  .gradient-danger {
+    background: linear-gradient(135deg, 
+      hsl(0, 84%, 60%) 0%, 
+      hsl(340, 82%, 52%) 100%
+    );
+  }
+  
+  /* ========== 文本渐变 ========== */
+  /**
+   * 文本渐变效果
+   * 使用背景裁剪技术实现文字渐变
+   */
+  .text-gradient {
+    background: linear-gradient(135deg, 
+      hsl(262, 83%, 58%) 0%, 
+      hsl(280, 100%, 70%) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-success {
+    background: linear-gradient(135deg, 
+      hsl(173, 80%, 40%) 0%, 
+      hsl(199, 89%, 48%) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-warning {
+    background: linear-gradient(135deg, 
+      hsl(43, 96%, 56%) 0%, 
+      hsl(27, 96%, 61%) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* ========== 玻璃态效果 ========== */
+  /**
+   * 玻璃态效果（毛玻璃）
+   * 使用背景模糊和半透明实现现代化的玻璃质感
+   */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ========== 卡片悬停效果 ========== */
+  /**
+   * 卡片悬停动画
+   * 提升交互反馈，使用平滑的过渡效果
+   */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);                 /* 轻微上浮 */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* 增强阴影 */
+  }
+  
+  /* ========== 背景图案 ========== */
+  /**
+   * 网格背景
+   * 使用CSS渐变创建网格图案，用于页面背景装饰
+   */
+  .bg-grid {
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;                 /* 网格大小：32x32px */
+  }
+  
+  /**
+   * 点状背景
+   * 使用径向渐变创建点状图案
+   */
+  .bg-dots {
+    background-image: radial-gradient(
+      circle at 1px 1px, 
+      hsl(var(--primary) / 0.1) 1px, 
+      transparent 0
+    );
+    background-size: 24px 24px;                 /* 点距：24px */
+  }
+  
+  /**
+   * 渐变背景遮罩
+   * 用于卡片和容器的渐变遮罩效果
+   */
+  .bg-gradient-mask {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.05) 0%,
+      transparent 50%,
+      hsl(var(--primary) / 0.05) 100%
+    );
+  }
+  
+  /* ========== 动画效果 ========== */
+  /**
+   * 浮动动画
+   * 用于图标、装饰元素等的上下浮动效果
+   */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  /**
+   * 闪烁动画（Shimmer）
+   * 用于进度条、加载状态等的闪烁效果
+   */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  /**
+   * 脉冲发光动画
+   * 用于按钮、卡片等的发光脉冲效果
+   */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+    }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  /**
+   * 淡入动画
+   * 用于页面元素进入时的淡入效果
+   */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  /**
+   * 缩放动画
+   * 用于按钮点击、卡片交互等的缩放效果
+   */
+  @keyframes scale-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+  
+  /* ========== 滚动条样式 ========== */
+  /**
+   * 自定义滚动条样式
+   * 现代化的细滚动条设计
+   */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+}

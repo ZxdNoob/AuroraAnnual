@@ -1,0 +1,79 @@
+# 根目录全局忽略文件
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE 和编辑器
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# 日志文件
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 包管理器
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# 构建输出
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+*.lcov
+
+# 依赖锁定文件（可选，根据团队需求决定是否忽略）
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Docker
+.dockerignore
+
+# 其他
+*.pem
+*.key
+*.cert
+

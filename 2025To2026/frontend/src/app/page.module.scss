@@ -29,46 +29,26 @@
 }
 
 .heroCard {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  // ============================================
+  // 现代简洁的 Hero 卡片设计
+  // ============================================
+  // 设计理念：
+  // - 使用单一主色调背景，简洁专业
+  // - 移除过多的装饰性元素（光晕、模糊等）
+  // - 保持清晰的视觉层次和可读性
+  // - 使用微妙的阴影增强层次感
+  //
+  background: #6366f1 !important;
   border: none !important;
   color: white !important;
-  position: relative;
-  overflow: hidden;
   padding: 48px 32px !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
 
   @media (max-width: 768px) {
     padding: 32px 24px !important;
   }
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 256px;
-    height: 256px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    filter: blur(48px);
-    z-index: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 192px;
-    height: 192px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    filter: blur(48px);
-    z-index: 0;
-  }
-
   :global(.ant-card-body) {
-    position: relative;
-    z-index: 1;
     color: white !important;
     padding: 0 !important;
   }
@@ -430,18 +410,29 @@
 }
 
 .iconWrapper {
+  // ============================================
+  // 统一的图标包装器设计
+  // ============================================
+  // 设计理念：
+  // - 使用主色调背景，保持视觉一致性
+  // - 统一的尺寸和圆角
+  // - 微妙的阴影，增强层次感
+  // - 平滑的过渡动画
+  //
   width: 56px;
   height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #6366f1;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
   flex-shrink: 0;
-  transition: transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   :global(.anticon) {
     font-size: 28px;
+    color: white;
   }
 }
 
@@ -468,14 +459,23 @@
 }
 
 .actionValue {
+  // ============================================
+  // 统一的数值显示设计
+  // ============================================
+  // 设计理念：
+  // - 使用主色调，保持视觉一致性
+  // - 移除渐变，使用单一颜色
+  // - 清晰的字体大小和粗细
+  //
   font-size: 48px;
   font-weight: 700;
   line-height: 1;
-  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #6366f1;
   margin-bottom: 4px;
+  
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 }
 
 .actionValueLabel {
@@ -498,9 +498,10 @@
 // - 在桌面端（lg 及以上）让两个卡片等高
 // - 使用 flexbox 让 Row 中的 Col 等高
 // - 让 Card 撑满 Col 的高度
+// - 确保在所有屏幕尺寸下卡片都能占满宽度
 //
 .equalHeightRow {
-  // 桌面端：使用 flexbox 让 Col 等高
+  // 桌面端（lg 及以上）：使用 flexbox 让 Col 等高
   @media (min-width: 992px) {
     display: flex;
     align-items: stretch;
@@ -525,15 +526,16 @@
     }
   }
   
-  // 移动端：保持自然高度
+  // 中等屏幕和移动端（小于 992px）：确保卡片占满宽度
   @media (max-width: 991px) {
-    display: block;
-    
     > :global(.ant-col) {
-      display: block;
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
       
       > * {
-        flex: none;
+        width: 100% !important;
+        max-width: 100% !important;
       }
       
       :global(.ant-card-body) {
@@ -544,14 +546,22 @@
 }
 
 .rankIcon {
+  // ============================================
+  // 段位图标设计
+  // ============================================
+  // 设计理念：
+  // - 使用主色调，保持视觉一致性
+  // - 统一的尺寸和样式
+  // - 微妙的阴影
+  //
   width: 64px;
   height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+  background: #6366f1;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
 }
 
 .rankInfo {

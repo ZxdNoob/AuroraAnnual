@@ -43,48 +43,69 @@ body {
 }
 
 body {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #fafafa;
+  color: #1a1a1a;
 }
+
+/**
+ * 设计系统颜色变量
+ * 
+ * @description 统一的颜色系统，遵循现代、简洁、专业的设计理念
+ * - 主色调：紫蓝色系（Indigo），用于主要操作和强调
+ * - 辅助色：语义化颜色（成功、警告、错误），使用单一色调
+ * - 中性色：灰色系，用于文本、边框、背景
+ * - 渐变：仅在必要时使用，统一使用主色调渐变
+ */
+
+// ============================================
+// 主色调（Primary）
+// ============================================
+$color-primary: #6366f1;
+$color-primary-hover: #4f46e5;
+$color-primary-active: #4338ca;
+$color-primary-light: #e0e7ff;
+$color-primary-bg: #f5f3ff;
+
+// ============================================
+// 辅助色（Semantic Colors）
+// ============================================
+$color-success: #10b981;
+$color-success-light: #d1fae5;
+$color-warning: #f59e0b;
+$color-warning-light: #fef3c7;
+$color-error: #ef4444;
+$color-error-light: #fee2e2;
+$color-info: #3b82f6;
+$color-info-light: #dbeafe;
+
+// ============================================
+// 中性色（Neutral）
+// ============================================
+$color-text-primary: #1a1a1a;
+$color-text-secondary: #4a5568;
+$color-text-tertiary: #718096;
+$color-border: #e2e8f0;
+$color-border-light: #f1f5f9;
+$color-bg-primary: #ffffff;
+$color-bg-secondary: #fafafa;
+$color-bg-tertiary: #f7fafc;
 
 /**
  * 自定义工具类
  */
 
-// 渐变背景
-.gradient-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+// 主色调背景（单一颜色，不使用渐变）
+.bg-primary {
+  background-color: $color-primary;
 }
 
-.gradient-success {
-  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+.bg-primary-light {
+  background-color: $color-primary-light;
 }
 
-.gradient-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
-}
-
-.gradient-danger {
-  background: linear-gradient(135deg, #ef4444 0%, #f43f5e 100%);
-}
-
-// 文本渐变
+// 文本渐变（仅用于特殊强调，使用主色调）
 .text-gradient {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-success {
-  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  background: linear-gradient(135deg, $color-primary 0%, #818cf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

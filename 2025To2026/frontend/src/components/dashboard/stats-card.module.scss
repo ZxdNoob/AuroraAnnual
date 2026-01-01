@@ -51,9 +51,18 @@
 }
 
 .gradientCard {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  // ============================================
+  // 渐变卡片设计（统一使用主色调）
+  // ============================================
+  // 设计理念：
+  // - 使用单一主色调背景，简洁专业
+  // - 移除渐变，使用纯色背景
+  // - 保持清晰的文本对比度
+  //
+  background: #6366f1 !important;
   border: none !important;
   color: white !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
 
   :global(.ant-statistic-title) {
     color: rgba(255, 255, 255, 0.9) !important;

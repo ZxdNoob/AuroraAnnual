@@ -37,10 +37,10 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     const antdType = typeMap[variant] || 'default'
     const antdSize = sizeMap[size] || 'middle'
 
-    // 处理 gradient variant 的特殊样式
+    // 处理 gradient variant 的特殊样式（统一使用单一主色调）
     const gradientStyle = variant === 'gradient' 
       ? {
-          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          background: '#6366f1',
           border: 'none',
           color: '#fff',
           ...style,

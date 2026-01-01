@@ -54,20 +54,12 @@ function getActivityIcon(type: string) {
 
 /**
  * 获取活动颜色
+ * 
+ * @description 统一使用主色调，保持视觉一致性
  */
 function getActivityColor(type: string): string {
-  switch (type) {
-    case 'CHECK_IN':
-      return '#ff9800'
-    case 'CODE':
-      return '#1890ff'
-    case 'BADGE':
-      return '#9c27b0'
-    case 'LOTTERY':
-      return '#e91e63'
-    default:
-      return '#757575'
-  }
+  // 所有活动类型统一使用主色调，保持设计一致性
+  return '#6366f1'
 }
 
 /**
@@ -177,7 +169,7 @@ export default function HomePage() {
               ]}
             >
               <Card.Meta
-                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)' }}>
+                avatar={<div className={styles.iconWrapper}>
                   <ThunderboltOutlined />
                 </div>}
                 title="每日打卡"
@@ -206,7 +198,7 @@ export default function HomePage() {
               ]}
             >
               <Card.Meta
-                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)' }}>
+                avatar={<div className={styles.iconWrapper}>
                   <CodeOutlined />
                 </div>}
                 title="在线编码"
@@ -230,7 +222,7 @@ export default function HomePage() {
               ]}
             >
               <Card.Meta
-                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)' }}>
+                avatar={<div className={styles.iconWrapper}>
                   <GiftOutlined />
                 </div>}
                 title="每日抽奖"
@@ -254,7 +246,7 @@ export default function HomePage() {
               ]}
             >
               <Card.Meta
-                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #fbbf24 0%, #f97316 100%)' }}>
+                avatar={<div className={styles.iconWrapper}>
                   <TrophyOutlined />
                 </div>}
                 title="我的段位"
@@ -268,7 +260,7 @@ export default function HomePage() {
                   <Badge 
                     count={userStats.rankStars} 
                     style={{ 
-                      backgroundColor: '#fbbf24',
+                      backgroundColor: '#6366f1',
                       fontSize: '12px',
                       minWidth: '20px',
                       height: '20px',
@@ -322,21 +314,19 @@ export default function HomePage() {
 
         {/* ========== 经验进度和段位信息 ========== */}
         <Row gutter={[16, 16]} className={styles.equalHeightRow} style={{ marginTop: 8 }}>
-          <Col xs={24} lg={12} style={{ display: 'flex' }}>
-            <div style={{ width: '100%', display: 'flex' }}>
-              <ExperienceBar
-                currentExp={userStats.currentExp}
-                nextLevelExp={userStats.nextLevelExp}
-                currentLevel={userStats.currentLevel}
-              />
-            </div>
+          <Col xs={24} md={24} lg={12} style={{ display: 'flex' }}>
+            <ExperienceBar
+              currentExp={userStats.currentExp}
+              nextLevelExp={userStats.nextLevelExp}
+              currentLevel={userStats.currentLevel}
+            />
           </Col>
 
-          <Col xs={24} lg={12} style={{ display: 'flex' }}>
+          <Col xs={24} md={24} lg={12} style={{ display: 'flex' }}>
             <Card 
               title={
                 <Space>
-                  <TrophyOutlined style={{ color: '#fbbf24' }} />
+                  <TrophyOutlined style={{ color: '#6366f1' }} />
                   <span>段位信息</span>
                 </Space>
               }
@@ -355,7 +345,7 @@ export default function HomePage() {
                         <StarOutlined
                           key={i}
                           style={{
-                            color: i < userStats.rankStars ? '#fbbf24' : '#d9d9d9',
+                            color: i < userStats.rankStars ? '#6366f1' : '#d9d9d9',
                             fontSize: '16px',
                           }}
                         />
@@ -375,7 +365,7 @@ export default function HomePage() {
                   </div>
                   <div className={styles.rankInfoItem}>
                     <Text type="secondary">段位等级</Text>
-                    <Badge count={`${userStats.currentRank} ${userStats.rankStars} 星`} style={{ backgroundColor: '#fbbf24' }} />
+                    <Badge count={`${userStats.currentRank} ${userStats.rankStars} 星`} style={{ backgroundColor: '#6366f1' }} />
                   </div>
                 </div>
                 
@@ -428,7 +418,7 @@ export default function HomePage() {
                       <Badge 
                         count={activity.reward} 
                         style={{ 
-                          backgroundColor: activity.isNew ? '#52c41a' : '#1890ff' 
+                          backgroundColor: '#6366f1'
                         }} 
                       />
                     )}

@@ -110,12 +110,12 @@
 }
 
 .logoText {
+  // ============================================
+  // Logo 文本设计（统一使用主色调）
+  // ============================================
   font-size: 18px;
   font-weight: bold;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #6366f1;
 
   @media (max-width: 640px) {
     display: none;

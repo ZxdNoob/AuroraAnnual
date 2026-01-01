@@ -1,413 +1,442 @@
+'use client'
+
 import { MainLayout } from '@/components/layout/main-layout'
 import { StatsCard } from '@/components/dashboard/stats-card'
 import { ExperienceBar } from '@/components/dashboard/experience-bar'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { 
-  Trophy, 
-  Zap, 
-  Award, 
-  Gift, 
-  TrendingUp,
-  Calendar,
-  Code,
-  Star,
-  Sparkles,
-  ArrowRight,
-  Flame,
-  Target,
-  Activity
-} from 'lucide-react'
+  Card, 
+  Button, 
+  Badge, 
+  Row, 
+  Col, 
+  Space, 
+  Typography, 
+  Spin,
+  Empty,
+  List,
+  Avatar,
+} from 'antd'
+import {
+  TrophyOutlined,
+  ThunderboltOutlined,
+  GiftOutlined,
+  CodeOutlined,
+  StarOutlined,
+  CalendarOutlined,
+  SafetyOutlined,
+  FireOutlined,
+  RightOutlined,
+} from '@ant-design/icons'
 import Link from 'next/link'
+import { useUserProfile } from '@/hooks/useUserProfile'
+import { useRecentActivities, type ActivityItem } from '@/hooks/useRecentActivities'
+import styles from './page.module.scss'
+
+const { Title, Paragraph, Text } = Typography
+
+/**
+ * 获取活动图标
+ */
+function getActivityIcon(type: string) {
+  switch (type) {
+    case 'CHECK_IN':
+      return <ThunderboltOutlined />
+    case 'CODE':
+      return <CodeOutlined />
+    case 'BADGE':
+      return <SafetyOutlined />
+    case 'LOTTERY':
+      return <GiftOutlined />
+    default:
+      return <FireOutlined />
+  }
+}
+
+/**
+ * 获取活动颜色
+ */
+function getActivityColor(type: string): string {
+  switch (type) {
+    case 'CHECK_IN':
+      return '#ff9800'
+    case 'CODE':
+      return '#1890ff'
+    case 'BADGE':
+      return '#9c27b0'
+    case 'LOTTERY':
+      return '#e91e63'
+    default:
+      return '#757575'
+  }
+}
 
 /**
  * 首页组件
  * 
- * @description 显示用户仪表板，包含统计信息、经验进度、快速操作等
- * 设计特点：
- * - 现代化的卡片布局
- * - 清晰的视觉层次
- * - 丰富的交互反馈
- * - 响应式设计
- * 
- * 页面结构：
- * 1. 欢迎横幅（Hero Section）
- * 2. 快速操作卡片（Quick Actions）
- * 3. 统计信息卡片（Statistics）
- * 4. 经验进度和段位信息
- * 5. 最近活动列表
+ * @description 使用 Ant Design 组件构建的首页
  */
 export default function HomePage() {
-  // 模拟数据（后续会从 API 获取）
-  const userStats = {
-    totalPoints: 1250,
-    currentLevel: 15,
-    currentExp: 850,
-    nextLevelExp: 1200,
-    currentRank: '黄金',
-    rankStars: 3,
-    consecutiveCheckInDays: 7,
-    totalCheckInDays: 45,
-    badgesCount: 8,
+  // 获取用户资料数据
+  const { data: userProfileData, isLoading: profileLoading } = useUserProfile()
+  const { data: activities = [], isLoading: activitiesLoading } = useRecentActivities(10)
+
+  // 如果数据加载中，显示加载状态（但显示骨架屏而不是完全空白）
+  if (profileLoading) {
+    return (
+      <MainLayout>
+        <div className={styles.container}>
+          <Card loading className={styles.heroCard} style={{ minHeight: '200px' }} />
+          <Row gutter={[16, 16]}>
+            {[1, 2, 3, 4].map((i) => (
+              <Col key={i} xs={24} sm={12} lg={6}>
+                <Card loading />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </MainLayout>
+    )
   }
+
+  // 如果出错或未登录，使用默认数据
+  const userStats = userProfileData
+    ? {
+        totalPoints: userProfileData.profile.totalPoints,
+        currentLevel: userProfileData.profile.currentLevel,
+        currentExp: userProfileData.profile.currentExp,
+        nextLevelExp: userProfileData.profile.nextLevelExp,
+        currentRank: userProfileData.rank?.name || '倔强黑铁',
+        rankStars: userProfileData.rank ? Math.min(5, Math.max(1, userProfileData.profile.totalCheckInDays % 5 || 1)) : 1,
+        consecutiveCheckInDays: userProfileData.profile.consecutiveCheckInDays,
+        totalCheckInDays: userProfileData.profile.totalCheckInDays,
+        badgesCount: 0,
+        season: userProfileData.rank?.season || 1,
+      }
+    : {
+        totalPoints: 0,
+        currentLevel: 1,
+        currentExp: 0,
+        nextLevelExp: 100,
+        currentRank: '倔强黑铁',
+        rankStars: 1,
+        consecutiveCheckInDays: 0,
+        totalCheckInDays: 0,
+        badgesCount: 0,
+        season: 1,
+      }
 
   return (
     <MainLayout>
-      <div className="space-y-8 animate-fade-in">
+      <div className={styles.container}>
         {/* ========== 欢迎区域（Hero Section）========== */}
-        <div className="relative overflow-hidden rounded-2xl gradient-primary p-8 md:p-12 text-white shadow-2xl">
-          {/* 背景装饰：使用绝对定位的圆形渐变 */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10" />
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
-          
-          {/* 内容区域 */}
-          <div className="relative z-10 space-y-6">
-            {/* 欢迎标签 */}
-            <div className="flex items-center space-x-2">
-              <Sparkles className="h-5 w-5 animate-pulse" />
-              <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                欢迎回来
-              </Badge>
+        <Card className={styles.heroCard}>
+          <div>
+            <div className={styles.heroWelcomeGreeting}>
+              <span className={styles.heroWelcomeText}>欢迎回来</span>
             </div>
-            
-            {/* 主标题 */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <Title level={1} className={styles.heroTitle}>
               继续你的学习之旅
-            </h1>
-            
-            {/* 描述文字 */}
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed">
+            </Title>
+            <Paragraph className={styles.heroDescription}>
               每天进步一点点，通过打卡、编码练习、完成任务来获得积分和经验，提升段位，解锁更多成就！
-            </p>
-            
-            {/* 操作按钮组 */}
-            <div className="flex flex-wrap gap-4 pt-2">
+            </Paragraph>
+            <div className={styles.heroButtons}>
               <Link href="/checkin">
                 <Button 
-                  size="lg" 
-                  variant="secondary" 
-                  className="shadow-lg hover:shadow-xl bg-white/95 text-primary hover:bg-white"
+                  type="primary" 
+                  size="large" 
+                  icon={<ThunderboltOutlined />}
+                  className={styles.heroPrimaryButton}
                 >
-                  <Zap className="mr-2 h-5 w-5" />
                   立即打卡
-                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/code">
                 <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-sm"
+                  size="large" 
+                  icon={<CodeOutlined />}
+                  className={styles.heroSecondaryButton}
                 >
-                  <Code className="mr-2 h-5 w-5" />
                   开始编码
                 </Button>
               </Link>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* ========== 快速操作卡片 ========== */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* 每日打卡卡片 */}
-          <Card className="card-hover group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Link href="/checkin">
-              <CardHeader className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-warning shadow-lg group-hover:scale-110 transition-transform">
-                    <Zap className="h-6 w-6 text-white" />
-                  </div>
-                  <Flame className="h-5 w-5 text-orange-500 animate-pulse" />
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} lg={6}>
+            <Card 
+              hoverable 
+              className={styles.actionCard}
+              actions={[
+                <Link key="checkin" href="/checkin">
+                  <Button type="primary" block size="large">立即打卡</Button>
+                </Link>
+              ]}
+            >
+              <Card.Meta
+                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)' }}>
+                  <ThunderboltOutlined />
+                </div>}
+                title="每日打卡"
+                description={`连续${userStats.consecutiveCheckInDays}天打卡中`}
+              />
+              <div className={styles.actionContent}>
+                <div>
+                  <span className={styles.actionValue}>{userStats.consecutiveCheckInDays}</span>
+                  <span className={styles.actionValueLabel}> 天</span>
                 </div>
-                <CardTitle className="text-lg">每日打卡</CardTitle>
-                <CardDescription>
-                  连续 {userStats.consecutiveCheckInDays} 天打卡中
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="space-y-2">
-                  <div className="flex items-baseline space-x-2">
-                    <span className="text-3xl font-bold text-gradient-warning">
-                      {userStats.consecutiveCheckInDays}
-                    </span>
-                    <span className="text-muted-foreground">天</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    累计打卡 {userStats.totalCheckInDays} 天
-                  </p>
-                  <Button className="w-full mt-4" size="sm" variant="gradient">
-                    立即打卡
-                  </Button>
-                </div>
-              </CardContent>
-            </Link>
-          </Card>
+                <Text type="secondary" className={styles.actionSubText}>
+                  累计打卡 {userStats.totalCheckInDays} 天
+                </Text>
+              </div>
+            </Card>
+          </Col>
 
-          {/* 在线编码卡片 */}
-          <Card className="card-hover group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Link href="/code">
-              <CardHeader className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-success shadow-lg group-hover:scale-110 transition-transform">
-                    <Code className="h-6 w-6 text-white" />
-                  </div>
-                  <Sparkles className="h-5 w-5 text-blue-500" />
-                </div>
-                <CardTitle className="text-lg">在线编码</CardTitle>
-                <CardDescription>
-                  专业代码编辑器
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="space-y-2">
-                  <div className="text-2xl font-bold text-gradient-success">
-                    开始编码
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    练习编程，提升技能
-                  </p>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    进入编辑器
-                  </Button>
-                </div>
-              </CardContent>
-            </Link>
-          </Card>
+          <Col xs={24} sm={12} lg={6}>
+            <Card 
+              hoverable 
+              className={styles.actionCard}
+              actions={[
+                <Link key="code" href="/code">
+                  <Button block size="large">进入编辑器</Button>
+                </Link>
+              ]}
+            >
+              <Card.Meta
+                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)' }}>
+                  <CodeOutlined />
+                </div>}
+                title="在线编码"
+                description="专业代码编辑器"
+              />
+              <div className={styles.actionContent}>
+                <Text strong style={{ fontSize: '20px', color: 'rgba(0, 0, 0, 0.85)' }}>练习编程</Text>
+                <Text type="secondary" className={styles.actionSubText}>提升技能</Text>
+              </div>
+            </Card>
+          </Col>
 
-          {/* 每日抽奖卡片 */}
-          <Card className="card-hover group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Link href="/lottery">
-              <CardHeader className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-secondary shadow-lg group-hover:scale-110 transition-transform">
-                    <Gift className="h-6 w-6 text-white" />
-                  </div>
-                  <Sparkles className="h-5 w-5 text-purple-500 animate-pulse" />
-                </div>
-                <CardTitle className="text-lg">每日抽奖</CardTitle>
-                <CardDescription>
-                  免费抽奖机会
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="space-y-2">
-                  <div className="text-2xl font-bold text-gradient-secondary">
-                    免费抽奖
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    有机会获得丰厚奖励
-                  </p>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    立即抽奖
-                  </Button>
-                </div>
-              </CardContent>
-            </Link>
-          </Card>
+          <Col xs={24} sm={12} lg={6}>
+            <Card 
+              hoverable 
+              className={styles.actionCard}
+              actions={[
+                <Link key="lottery" href="/lottery">
+                  <Button type="primary" block size="large">立即抽奖</Button>
+                </Link>
+              ]}
+            >
+              <Card.Meta
+                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)' }}>
+                  <GiftOutlined />
+                </div>}
+                title="每日抽奖"
+                description="免费抽奖机会"
+              />
+              <div className={styles.actionContent}>
+                <Text strong style={{ fontSize: '20px', color: 'rgba(0, 0, 0, 0.85)' }}>有机会获得</Text>
+                <Text type="secondary" className={styles.actionSubText}>丰厚奖励</Text>
+              </div>
+            </Card>
+          </Col>
 
-          {/* 我的段位卡片 */}
-          <Card className="card-hover group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Link href="/ranks">
-              <CardHeader className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg group-hover:scale-110 transition-transform">
-                    <Trophy className="h-6 w-6 text-white" />
-                  </div>
-                  <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-                </div>
-                <CardTitle className="text-lg">我的段位</CardTitle>
-                <CardDescription>
-                  {userStats.currentRank} {userStats.rankStars} 星
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-2xl font-bold">{userStats.currentRank}</span>
-                    <Badge variant="secondary">{userStats.rankStars} 星</Badge>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    查看段位详情
-                  </p>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    查看详情
-                  </Button>
-                </div>
-              </CardContent>
-            </Link>
-          </Card>
-        </div>
+          <Col xs={24} sm={12} lg={6}>
+            <Card 
+              hoverable 
+              className={styles.actionCard}
+              actions={[
+                <Link key="ranks" href="/ranks">
+                  <Button block size="large">查看详情</Button>
+                </Link>
+              ]}
+            >
+              <Card.Meta
+                avatar={<div className={styles.iconWrapper} style={{ background: 'linear-gradient(135deg, #fbbf24 0%, #f97316 100%)' }}>
+                  <TrophyOutlined />
+                </div>}
+                title="我的段位"
+                description={`${userStats.currentRank}${userStats.rankStars}星`}
+              />
+              <div className={styles.actionContent}>
+                <Space align="baseline" size={8}>
+                  <Text strong style={{ fontSize: '20px', color: 'rgba(0, 0, 0, 0.85)' }}>
+                    {userStats.currentRank}
+                  </Text>
+                  <Badge 
+                    count={userStats.rankStars} 
+                    style={{ 
+                      backgroundColor: '#fbbf24',
+                      fontSize: '12px',
+                      minWidth: '20px',
+                      height: '20px',
+                      lineHeight: '20px',
+                      padding: '0 6px',
+                    }} 
+                  />
+                </Space>
+                <Text type="secondary" className={styles.actionSubText}>查看段位详情</Text>
+              </div>
+            </Card>
+          </Col>
+        </Row>
 
         {/* ========== 统计信息卡片 ========== */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <StatsCard
-            title="总积分"
-            value={userStats.totalPoints.toLocaleString()}
-            description="累计获得积分"
-            icon={Trophy}
-            trend={{ value: 12, isPositive: true }}
-            gradient
-          />
-          <StatsCard
-            title="当前等级"
-            value={userStats.currentLevel}
-            description="经验等级"
-            icon={Star}
-          />
-          <StatsCard
-            title="连续打卡"
-            value={`${userStats.consecutiveCheckInDays} 天`}
-            description="保持打卡可获得额外奖励"
-            icon={Calendar}
-            trend={{ value: 5, isPositive: true }}
-          />
-          <StatsCard
-            title="获得勋章"
-            value={userStats.badgesCount}
-            description="已解锁的成就勋章"
-            icon={Award}
-          />
-        </div>
+        <Row gutter={[16, 16]} style={{ marginTop: 8 }}>
+          <Col xs={12} sm={12} lg={6}>
+            <StatsCard
+              title="总积分"
+              value={userStats.totalPoints.toLocaleString()}
+              description="累计获得积分"
+              icon={<TrophyOutlined />}
+              gradient
+            />
+          </Col>
+          <Col xs={12} sm={12} lg={6}>
+            <StatsCard
+              title="当前等级"
+              value={userStats.currentLevel}
+              description="经验等级"
+              icon={<StarOutlined />}
+            />
+          </Col>
+          <Col xs={12} sm={12} lg={6}>
+            <StatsCard
+              title="连续打卡"
+              value={`${userStats.consecutiveCheckInDays}天`}
+              description="保持打卡可获得额外奖励"
+              icon={<CalendarOutlined />}
+            />
+          </Col>
+          <Col xs={12} sm={12} lg={6}>
+            <StatsCard
+              title="获得勋章"
+              value={userStats.badgesCount}
+              description="已解锁的成就勋章"
+              icon={<SafetyOutlined />}
+            />
+          </Col>
+        </Row>
 
         {/* ========== 经验进度和段位信息 ========== */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* 经验进度条 */}
-          <ExperienceBar
-            currentExp={userStats.currentExp}
-            nextLevelExp={userStats.nextLevelExp}
-            currentLevel={userStats.currentLevel}
-          />
+        <Row gutter={[16, 16]} className={styles.equalHeightRow} style={{ marginTop: 8 }}>
+          <Col xs={24} lg={12} style={{ display: 'flex' }}>
+            <div style={{ width: '100%', display: 'flex' }}>
+              <ExperienceBar
+                currentExp={userStats.currentExp}
+                nextLevelExp={userStats.nextLevelExp}
+                currentLevel={userStats.currentLevel}
+              />
+            </div>
+          </Col>
 
-          {/* 段位信息卡片 */}
-          <Card className="card-hover relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-orange-500/10 to-red-500/10" />
-            <CardHeader className="relative z-10">
-              <CardTitle className="flex items-center space-x-2">
-                <Trophy className="h-6 w-6 text-yellow-500" />
-                <span>段位信息</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="relative z-10 space-y-6">
-              {/* 段位展示 */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg">
-                    <Trophy className="h-8 w-8 text-white" />
+          <Col xs={24} lg={12} style={{ display: 'flex' }}>
+            <Card 
+              title={
+                <Space>
+                  <TrophyOutlined style={{ color: '#fbbf24' }} />
+                  <span>段位信息</span>
+                </Space>
+              }
+              hoverable
+              style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <Space direction="vertical" size="large" style={{ width: '100%', flex: 1, display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div className={styles.rankIcon}>
+                    <TrophyOutlined style={{ fontSize: '32px', color: '#fff' }} />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold">{userStats.currentRank}</p>
-                    <div className="flex items-center space-x-1 mt-1">
+                    <Title level={3} style={{ margin: 0 }}>{userStats.currentRank}</Title>
+                    <Space>
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
+                        <StarOutlined
                           key={i}
-                          className={`h-4 w-4 transition-colors ${
-                            i < userStats.rankStars
-                              ? 'fill-yellow-500 text-yellow-500'
-                              : 'text-muted-foreground'
-                          }`}
+                          style={{
+                            color: i < userStats.rankStars ? '#fbbf24' : '#d9d9d9',
+                            fontSize: '16px',
+                          }}
                         />
                       ))}
-                    </div>
+                    </Space>
                   </div>
                 </div>
-              </div>
-              
-              {/* 段位详情 */}
-              <div className="space-y-3 pt-4 border-t">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">当前赛季</span>
-                  <span className="font-semibold">第 1 赛季</span>
+                
+                <div className={styles.rankInfo}>
+                  <div className={styles.rankInfoItem}>
+                    <Text type="secondary">当前赛季</Text>
+                    <Text strong>第 {userStats.season} 赛季</Text>
+                  </div>
+                  <div className={styles.rankInfoItem}>
+                    <Text type="secondary">累计打卡</Text>
+                    <Text strong>{userStats.totalCheckInDays} 天</Text>
+                  </div>
+                  <div className={styles.rankInfoItem}>
+                    <Text type="secondary">段位等级</Text>
+                    <Badge count={`${userStats.currentRank} ${userStats.rankStars} 星`} style={{ backgroundColor: '#fbbf24' }} />
+                  </div>
                 </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">累计打卡</span>
-                  <span className="font-semibold">{userStats.totalCheckInDays} 天</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">段位等级</span>
-                  <Badge variant="secondary" className="font-semibold">
-                    {userStats.currentRank} {userStats.rankStars} 星
-                  </Badge>
-                </div>
-              </div>
-              
-              {/* 查看详情按钮 */}
-              <Link href="/ranks">
-                <Button variant="gradient" className="w-full">
-                  查看段位详情
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
+                
+                <Link href="/ranks">
+                  <Button type="primary" block icon={<RightOutlined />}>
+                    查看段位详情
+                  </Button>
+                </Link>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
 
         {/* ========== 最近活动 ========== */}
-        <Card className="card-hover">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Activity className="h-5 w-5 text-primary" />
+        <Card
+          className={styles.recentActivitiesCard}
+          title={
+            <Space>
+              <FireOutlined style={{ color: '#6366f1' }} />
               <span>最近活动</span>
-            </CardTitle>
-            <CardDescription>
-              查看你的最新活动和成就
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[
-                { 
-                  icon: Zap, 
-                  title: '完成每日打卡', 
-                  time: '2 小时前', 
-                  reward: '+10 积分', 
-                  color: 'text-orange-500',
-                  bgColor: 'bg-orange-500/10'
-                },
-                { 
-                  icon: Code, 
-                  title: '完成编程练习', 
-                  time: '5 小时前', 
-                  reward: '+25 经验', 
-                  color: 'text-blue-500',
-                  bgColor: 'bg-blue-500/10'
-                },
-                { 
-                  icon: Award, 
-                  title: '获得新勋章：连续打卡 7 天', 
-                  time: '1 天前', 
-                  reward: '新获得', 
-                  color: 'text-purple-500',
-                  bgColor: 'bg-purple-500/10',
-                  isNew: true 
-                },
-              ].map((activity, index) => {
-                const Icon = activity.icon
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-4 p-4 rounded-xl border bg-card hover:bg-accent/50 transition-colors group"
-                  >
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${activity.bgColor} ${activity.color} group-hover:scale-110 transition-transform`}>
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{activity.title}</p>
-                      <p className="text-sm text-muted-foreground">{activity.time}</p>
-                    </div>
-                    <Badge variant={activity.isNew ? 'default' : 'secondary'} className="font-semibold shrink-0">
-                      {activity.reward}
-                    </Badge>
-                  </div>
-                )
-              })}
+            </Space>
+          }
+          extra={<Text type="secondary" style={{ fontSize: '14px' }}>查看你的最新活动和成就</Text>}
+          hoverable
+        >
+          {activitiesLoading ? (
+            <div className={styles.loadingContainer}>
+              <Spin />
             </div>
-          </CardContent>
+          ) : activities.length === 0 ? (
+            <Empty description="暂无活动记录" />
+          ) : (
+            <List
+              dataSource={activities}
+              renderItem={(activity) => {
+                const color = getActivityColor(activity.type)
+                return (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={
+                        <Avatar 
+                          style={{ backgroundColor: color }}
+                          icon={getActivityIcon(activity.type)}
+                        />
+                      }
+                      title={activity.title}
+                      description={activity.time}
+                    />
+                    {activity.reward && (
+                      <Badge 
+                        count={activity.reward} 
+                        style={{ 
+                          backgroundColor: activity.isNew ? '#52c41a' : '#1890ff' 
+                        }} 
+                      />
+                    )}
+                  </List.Item>
+                )
+              }}
+            />
+          )}
         </Card>
       </div>
     </MainLayout>

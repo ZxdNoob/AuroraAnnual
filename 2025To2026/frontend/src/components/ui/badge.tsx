@@ -1,90 +1,56 @@
-import * as React from 'react'
-import { cn } from '@/lib/utils'
+import { Badge as AntBadge } from 'antd'
+import type { BadgeProps as AntBadgeProps } from 'antd'
+import React from 'react'
 
 /**
- * 徽章组件属性接口
+ * Badge 组件 - Ant Design 包装器
+ * 
+ * @description 为了保持向后兼容，将自定义 Badge 组件改为 Ant Design Badge 的包装器
  */
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps extends Omit<AntBadgeProps, 'status'> {
   variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'success'
 }
 
-/**
- * 徽章组件
- * 
- * @description 现代化的徽章组件，用于显示标签、状态等信息
- * 设计特点：
- * - 圆角设计（rounded-full）
- * - 紧凑的内边距
- * - 清晰的字体和颜色对比
- * - 平滑的过渡效果
- * 
- * @variant 徽章样式变体：
- * - default: 默认主色调徽章
- * - secondary: 次要徽章（灰色）
- * - destructive: 危险徽章（红色）
- * - outline: 轮廓徽章（无背景）
- * - success: 成功徽章（绿色）
- */
-function Badge({ className, variant = 'default', ...props }: BadgeProps) {
-  /**
-   * 徽章样式变体定义
-   * 每种变体都有独特的颜色和样式
-   */
-  const variants = {
-    /**
-     * 默认徽章：主色调背景
-     * - border-transparent: 透明边框
-     * - bg-primary: 主色调背景
-     * - text-primary-foreground: 主色调文字
-     * - hover:bg-primary/80: 悬停时80%不透明度
-     */
-    default: 
-      'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
-    
-    /**
-     * 次要徽章：灰色背景
-     * 用于次要信息显示
-     */
-    secondary: 
-      'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    
-    /**
-     * 危险徽章：红色背景
-     * 用于错误、警告等状态
-     */
-    destructive: 
-      'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-    
-    /**
-     * 轮廓徽章：无背景，有边框
-     * 用于次要标签
-     */
-    outline: 
-      'text-foreground border-border',
-    
-    /**
-     * 成功徽章：绿色背景
-     * 用于成功状态、完成状态等
-     * 使用渐变色实现
-     */
-    success:
-      'border-transparent gradient-success text-white hover:opacity-90',
+export const Badge: React.FC<BadgeProps> = ({ 
+  variant = 'default', 
+  children,
+  className,
+  ...props 
+}) => {
+  // 将自定义 variant 映射到 Ant Design 的样式
+  const variantStyles: Record<string, React.CSSProperties> = {
+    default: {
+      backgroundColor: '#6366f1',
+      color: '#fff',
+    },
+    secondary: {
+      backgroundColor: '#f0f0f0',
+      color: '#333',
+    },
+    destructive: {
+      backgroundColor: '#ef4444',
+      color: '#fff',
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      border: '1px solid #d9d9d9',
+      color: '#333',
+    },
+    success: {
+      backgroundColor: '#10b981',
+      color: '#fff',
+    },
   }
 
+  const style = variantStyles[variant] || variantStyles.default
+
   return (
-    <div
-      className={cn(
-        /* 基础样式 */
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold',
-        'transition-colors duration-200',        /* 颜色过渡动画 */
-        'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2', /* 焦点状态 */
-        variants[variant],
-        className
-      )}
+    <AntBadge
+      className={className}
+      style={style}
       {...props}
-    />
+    >
+      {children}
+    </AntBadge>
   )
 }
-
-export { Badge }

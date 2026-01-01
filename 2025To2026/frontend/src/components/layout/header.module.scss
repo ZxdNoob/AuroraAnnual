@@ -1,0 +1,207 @@
+.header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  // ============================================
+  // 修复透明度问题：使用完全不透明的白色背景
+  // ============================================
+  // 
+  // 问题：之前使用 rgba(255, 255, 255, 0.8) 导致 20% 透明度
+  //     滚动时会看到下面的内容透过 Header 显示
+  // 
+  // 解决方案：改为完全不透明的白色背景 #fff
+  //     移除 backdrop-filter（因为背景完全不透明，不需要模糊效果）
+  //     保持 border-bottom 作为视觉分隔
+  //
+  background: #fff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  padding: 0 !important;
+  height: 64px !important;
+  line-height: 64px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+
+  // 覆盖 Ant Design Layout.Header 的默认样式
+  :global(.ant-layout-header) {
+    background: #fff !important;
+    padding: 0 !important;
+    height: 64px !important;
+    line-height: 64px !important;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    padding: 0 24px;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: transform 0.2s;
+
+  // PC 端 hover 效果
+  @media (min-width: 768px) {
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  // 移动端移除 hover 和点击激活态
+  @media (max-width: 767px) {
+    &:hover,
+    &:active,
+    &:focus {
+      transform: none;
+    }
+  }
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Logo SVG 样式
+  :global(.logo-svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  // PC 端 hover 效果
+  @media (min-width: 768px) {
+    &:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+  }
+  
+  // 移动端移除 hover 效果
+  @media (max-width: 767px) {
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.desktopMenu {
+  flex: 1;
+  justify-content: flex-end;
+  border-bottom: none;
+  min-width: 0;
+  display: flex;
+
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+.mobileMenuButton {
+  display: none !important;
+  height: 40px !important;
+  width: 40px !important;
+  min-width: 40px !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 1001;
+  position: relative;
+  cursor: pointer !important;
+  touch-action: manipulation;
+
+  @media (max-width: 767px) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  // 移动端移除 hover 效果，但保留点击反馈
+  @media (max-width: 767px) {
+    &:hover {
+      background: transparent !important;
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.06) !important;
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+  }
+}
+
+.mobileMenu {
+  display: block;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  // 移动端菜单也使用完全不透明的白色背景，保持一致性
+  background: #fff;
+  padding: 8px 0;
+  position: relative;
+  z-index: 999;
+
+  // 移动端移除菜单项的 hover 和激活态样式
+  @media (max-width: 767px) {
+    :global(.ant-menu-item) {
+      &:hover,
+      &:active,
+      &:focus {
+        background: transparent !important;
+        color: rgba(0, 0, 0, 0.85) !important;
+      }
+
+      &.ant-menu-item-selected {
+        background: rgba(99, 102, 241, 0.1) !important;
+        color: #6366f1 !important;
+
+        &:hover,
+        &:active,
+        &:focus {
+          background: rgba(99, 102, 241, 0.15) !important;
+        }
+      }
+    }
+
+    :global(.ant-menu-item-icon) {
+      margin-right: 12px;
+    }
+  }
+}
+

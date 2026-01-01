@@ -88,7 +88,11 @@ export class AuthService {
 
     return {
       accessToken,
-      user,
+      user: {
+        ...user,
+        nickname: user.nickname ?? undefined,
+        avatar: user.avatar ?? undefined,
+      },
     }
   }
 

@@ -1,0 +1,624 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fade-in 0.5s ease-out;
+  padding-bottom: 24px;
+
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.heroCard {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border: none !important;
+  color: white !important;
+  position: relative;
+  overflow: hidden;
+  padding: 48px 32px !important;
+
+  @media (max-width: 768px) {
+    padding: 32px 24px !important;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 256px;
+    height: 256px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(48px);
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 192px;
+    height: 192px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(48px);
+    z-index: 0;
+  }
+
+  :global(.ant-card-body) {
+    position: relative;
+    z-index: 1;
+    color: white !important;
+    padding: 0 !important;
+  }
+
+  :global(.ant-card-head),
+  :global(.ant-card-actions) {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+// ============================================
+// 欢迎问候语设计（喜庆风格）
+// ============================================
+// 
+// 设计理念：
+// - 采用喜庆、温暖的视觉风格
+// - 使用金色/红色渐变，营造节日氛围
+// - 添加装饰性元素（星星、光点），增强喜庆感
+// - 使用闪烁和飘动动画，增加活力
+// - 保持纯文本设计，避免按钮感
+//
+// 设计特点：
+// 1. 喜庆色彩：使用金色到红色的渐变，营造温暖喜庆的氛围
+// 2. 装饰元素：添加星星和光点装饰，增强视觉吸引力
+// 3. 动画效果：闪烁和轻微飘动动画，增加活力和喜庆感
+// 4. 精致排版：保持精致的字体样式和间距
+// 5. 响应式设计：移动端优化字体大小和间距
+//
+.heroWelcomeGreeting {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  animation: welcomeFadeIn 0.6s ease-out 0.2s both;
+  
+  // 左侧装饰线条（金色渐变，增强喜庆感）
+  &::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, #ffd700 0%, #ff6b6b 50%, #ffd700 100%);
+    border-radius: 2px;
+    margin-right: 14px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+  
+  // 装饰星星（左侧）
+  &::after {
+    content: '✨';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    animation: twinkle 1.5s ease-in-out infinite;
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+    
+    &::before {
+      height: 20px;
+      margin-right: 12px;
+      width: 3px;
+    }
+    
+    &::after {
+      font-size: 14px;
+      left: -6px;
+    }
+  }
+}
+
+.heroWelcomeText {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  
+  // ============================================
+  // 核心设计：喜庆风格的文字样式
+  // ============================================
+  // 
+  // 设计原理：
+  // 1. 金色渐变文字：使用金色到红色的渐变，营造喜庆氛围
+  //    渐变从 #ffd700（金色）到 #ff6b6b（珊瑚红），温暖喜庆
+  // 2. 文字阴影：添加金色光晕效果，增强视觉吸引力
+  //    使用多层阴影，营造发光效果
+  // 3. 闪烁动画：文字轻微闪烁，增加活力和喜庆感
+  //    使用 opacity 和 text-shadow 的变化，营造闪烁效果
+  // 4. 装饰光点：在文字周围添加光点装饰
+  //    使用伪元素创建光点，增加节日氛围
+  //
+  
+  // 金色到红色的渐变文字
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff6b6b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  // 金色光晕效果（多层阴影）
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 30px rgba(255, 107, 107, 0.2);
+  
+  // 闪烁动画
+  animation: textShimmer 2s ease-in-out infinite;
+  
+  // 装饰光点（文字前）
+  &::before {
+    content: '🎉';
+    position: absolute;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    animation: float 2s ease-in-out infinite;
+    opacity: 0.9;
+  }
+  
+  // 装饰光点（文字后）
+  &::after {
+    content: '🎊';
+    position: absolute;
+    right: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    animation: float 2s ease-in-out infinite 0.5s;
+    opacity: 0.9;
+  }
+  
+  // 响应式设计：移动端优化
+  @media (max-width: 768px) {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    
+    &::before {
+      left: -24px;
+      font-size: 16px;
+    }
+    
+    &::after {
+      right: -24px;
+      font-size: 16px;
+    }
+  }
+}
+
+// ============================================
+// 动画效果定义
+// ============================================
+
+// 欢迎文本淡入动画
+@keyframes welcomeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 装饰线条闪烁动画
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  }
+}
+
+// 星星闪烁动画
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+// 文字闪烁动画
+@keyframes textShimmer {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.3),
+      0 0 30px rgba(255, 107, 107, 0.2);
+  }
+  50% {
+    opacity: 0.9;
+    text-shadow: 
+      0 0 15px rgba(255, 215, 0, 0.7),
+      0 0 25px rgba(255, 215, 0, 0.5),
+      0 0 35px rgba(255, 107, 107, 0.4);
+  }
+}
+
+// 装饰元素飘动动画
+@keyframes float {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-60%) translateX(2px);
+    opacity: 1;
+  }
+}
+
+.heroTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+}
+
+.heroDescription {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.heroPrimaryButton {
+  background: #fff !important;
+  border-color: #fff !important;
+  color: #6366f1 !important;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  // PC 端 hover 效果
+  @media (min-width: 768px) {
+    &:hover {
+      background: rgba(255, 255, 255, 0.95) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // 移动端移除 hover 效果
+  @media (max-width: 767px) {
+    &:hover,
+    &:active {
+      background: #fff !important;
+      transform: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.heroSecondaryButton {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+
+  // PC 端 hover 效果
+  @media (min-width: 768px) {
+    &:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      transform: translateY(-2px);
+    }
+  }
+
+  // 移动端移除 hover 效果
+  @media (max-width: 767px) {
+    &:hover,
+    &:active {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+      transform: none;
+    }
+  }
+}
+
+.actionCard {
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+
+  :global(.ant-card-body) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px !important;
+  }
+
+  :global(.ant-card-meta) {
+    margin-bottom: 20px;
+  }
+
+  :global(.ant-card-meta-title) {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  :global(.ant-card-meta-description) {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  :global(.ant-card-actions) {
+    border-top: 1px solid #f0f0f0;
+    padding: 16px 24px;
+    background: #fafafa;
+
+    li {
+      margin: 0 !important;
+      width: 100% !important;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+
+  :global(.anticon) {
+    font-size: 28px;
+  }
+}
+
+// PC 端图标 hover 效果
+@media (min-width: 768px) {
+  .actionCard:hover .iconWrapper {
+    transform: scale(1.1);
+  }
+}
+
+// 移动端移除图标 hover 效果
+@media (max-width: 767px) {
+  .actionCard .iconWrapper {
+    transform: none;
+  }
+}
+
+.actionContent {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.actionValue {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.actionValueLabel {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 500;
+}
+
+.actionSubText {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.45);
+  margin-top: 4px;
+}
+
+// ============================================
+// 经验等级和段位信息卡片等高样式
+// ============================================
+// 
+// 设计理念：
+// - 在桌面端（lg 及以上）让两个卡片等高
+// - 使用 flexbox 让 Row 中的 Col 等高
+// - 让 Card 撑满 Col 的高度
+//
+.equalHeightRow {
+  // 桌面端：使用 flexbox 让 Col 等高
+  @media (min-width: 992px) {
+    display: flex;
+    align-items: stretch;
+    
+    > :global(.ant-col) {
+      display: flex;
+      flex-direction: column;
+      
+      > * {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      // Card body 使用 flex 布局
+      :global(.ant-card-body) {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  
+  // 移动端：保持自然高度
+  @media (max-width: 991px) {
+    display: block;
+    
+    > :global(.ant-col) {
+      display: block;
+      
+      > * {
+        flex: none;
+      }
+      
+      :global(.ant-card-body) {
+        flex: none;
+      }
+    }
+  }
+}
+
+.rankIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.rankInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.rankInfoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+// 最近活动卡片样式优化
+.recentActivitiesCard {
+  :global(.ant-card-head-title) {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  :global(.ant-list-item) {
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+
+    // PC 端 hover 效果
+    @media (min-width: 768px) {
+      &:hover {
+        background-color: #fafafa;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: -8px;
+        margin-right: -8px;
+        border-radius: 4px;
+      }
+    }
+
+    // 移动端移除 hover 效果
+    @media (max-width: 767px) {
+      &:hover,
+      &:active {
+        background-color: transparent;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  :global(.ant-list-item-meta-title) {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  :global(.ant-list-item-meta-description) {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+}
+

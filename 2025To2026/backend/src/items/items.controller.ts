@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger'
@@ -57,12 +58,12 @@ export class ItemsController {
     description: '获取成功',
     type: [UserItemDto],
   })
+  @ApiQuery({ name: 'includeUsed', required: false, type: Boolean })
   async getUserItems(
     @CurrentUser('id') userId: string,
-    @ApiQuery({ name: 'includeUsed', required: false, type: Boolean })
-    includeUsed?: boolean
+    @Query('includeUsed') includeUsed?: string
   ) {
-    return this.itemsService.getUserItems(userId, includeUsed === true)
+    return this.itemsService.getUserItems(userId, includeUsed === 'true')
   }
 
   /**

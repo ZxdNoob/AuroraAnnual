@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { QueryProvider } from '@/components/providers/query-provider'
+import { AntdProvider } from '@/components/providers/antd-provider'
+import { AntdRegistry } from '@/lib/antd-registry'
 import './globals.scss'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -7,6 +10,18 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || '全栈学习激励平台',
   description: '全栈学习 + 笔记 + 练习 + 打卡 + 积分 + 段位 + 勋章 + 抽奖激励机制平台',
+  icons: {
+    // SVG favicon（现代浏览器支持）
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    // 快捷方式图标
+    shortcut: '/favicon.svg',
+    // Apple Touch Icon（iOS 设备）
+    apple: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -16,7 +31,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AntdRegistry>
+          <AntdProvider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+          </AntdProvider>
+        </AntdRegistry>
+      </body>
     </html>
   )
 }

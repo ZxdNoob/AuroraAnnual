@@ -1,0 +1,89 @@
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+
+  :global(.ant-statistic) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  :global(.ant-statistic-title) {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  :global(.ant-statistic-content) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  :global(.ant-statistic-content-prefix) {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  :global(.ant-statistic-content-value) {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  // PC 端 hover 效果
+  @media (min-width: 768px) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // 移动端移除 hover 效果
+  @media (max-width: 767px) {
+    &:hover,
+    &:active {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.gradientCard {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border: none !important;
+  color: white !important;
+
+  :global(.ant-statistic-title) {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  :global(.ant-statistic-content) {
+    color: white !important;
+  }
+
+  :global(.ant-card-body) {
+    color: white !important;
+  }
+}
+
+.description {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.45);
+  line-height: 1.4;
+}
+
+.trendUp {
+  color: #52c41a;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.trendDown {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-left: 8px;
+}
+

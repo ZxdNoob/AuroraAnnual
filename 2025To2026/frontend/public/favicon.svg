@@ -1,0 +1,37 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="faviconStarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圆形 -->
+  <rect width="32" height="32" rx="6" fill="url(#faviconGradient)" />
+  
+  <!-- 向上箭头 - 代表成长 -->
+  <path
+    d="M16 10 L16 20 M11 16 L16 10 L21 16"
+    stroke="white"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+  
+  <!-- 星星装饰 - 代表成就 -->
+  <g transform="translate(22, 6)">
+    <path
+      d="M1.5 0 L1.8 1.1 L2.9 1.5 L1.8 1.9 L1.5 3 L1.2 1.9 L0.1 1.5 L1.2 1.1 Z"
+      fill="url(#faviconStarGradient)"
+      opacity="0.9"
+    />
+  </g>
+  
+  <!-- 底部装饰点 -->
+  <circle cx="16" cy="23" r="1" fill="white" opacity="0.8" />
+</svg>

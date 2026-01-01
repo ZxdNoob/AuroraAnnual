@@ -8,6 +8,7 @@ import { RanksService } from '../ranks/ranks.service'
 import { BadgesService } from '../badges/badges.service'
 import { calculateCheckInPoints } from './utils/points-calculator'
 import { calculateExperience } from './utils/experience-calculator'
+import { calculateCurrentSeason } from '../ranks/utils/season-calculator'
 import { CheckInResponseDto } from './dto/checkin-response.dto'
 
 /**

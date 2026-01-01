@@ -52,7 +52,39 @@ app.enableCors({
 });
 ```
 
-### 5. 类型错误
+### 5. TypeScript 编译错误导致后端服务无法启动
+
+**问题描述**：运行 `npm run start:dev` 时后端服务无法启动，`npm run build` 出现多个 TypeScript 编译错误
+
+**常见原因**：
+- 装饰器使用错误（如 `@ApiQuery` 位置不正确）
+- 类型不匹配（Prisma 返回 `null`，但 DTO 期望 `undefined`）
+- 缺失函数导入
+- 类型推断失败（循环中的复杂类型）
+
+**快速解决方案**：
+
+```bash
+# 1. 检查编译错误
+cd backend
+npm run build
+
+# 2. 根据错误信息修复：
+# - 装饰器问题：确保 @ApiQuery 在方法上，@Query 在参数上
+# - 类型转换：使用 value ?? undefined 将 null 转换为 undefined
+# - 缺失导入：添加必要的 import 语句
+# - 类型推断：显式指定变量类型
+
+# 3. 重新编译
+npm run build
+
+# 4. 启动服务
+npm run start:dev
+```
+
+**详细解决方案**：请查看 [TypeScript 编译错误详细记录](./2026-01-01-typescript-compilation-errors.md)
+
+### 6. 类型错误（通用）
 
 **问题描述**：TypeScript 类型检查失败
 
@@ -62,7 +94,7 @@ app.enableCors({
 2. 检查类型定义是否正确
 3. 使用类型断言（谨慎使用）
 
-### 6. 前端服务无法启动（Tailwind CSS 配置问题）
+### 7. 前端服务无法启动（Tailwind CSS 配置问题）
 
 **问题描述**：访问 `http://localhost:3000` 时页面卡住或返回 500 错误
 
@@ -89,5 +121,4 @@ npm run dev
 
 ---
 
-**最后更新时间**：2026-01-01 15:42:24
-
+**最后更新时间**：2026-01-01 20:54:18

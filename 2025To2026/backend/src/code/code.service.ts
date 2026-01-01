@@ -400,17 +400,17 @@ export class CodeService {
    * @returns 是否是后代
    */
   private async isDescendant(fileId: string, parentId: string, userId: string): Promise<boolean> {
-    let currentId = parentId
+    let currentId: string | null = parentId
 
     while (currentId) {
-      const current = await this.prisma.codeFile.findFirst({
+      const current: { id: string; parentId: string | null } | null = await this.prisma.codeFile.findFirst({
         where: {
           id: currentId,
           userId,
         },
       })
 
-      if (!current) {
+      if (!current || !current.parentId) {
         break
       }
 
@@ -418,7 +418,7 @@ export class CodeService {
         return true
       }
 
-      currentId = current.parentId || undefined
+      currentId = current.parentId
     }
 
     return false

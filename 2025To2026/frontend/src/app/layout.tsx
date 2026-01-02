@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { AntdProvider } from '@/components/providers/antd-provider'
 import { AntdRegistry } from '@/lib/antd-registry'
+import { AuthProvider } from '@/contexts/auth-context'
 import './globals.scss'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -35,7 +36,9 @@ export default function RootLayout({
         <AntdRegistry>
           <AntdProvider>
             <QueryProvider>
-              {children}
+              <AuthProvider>
+                {children}
+              </AuthProvider>
             </QueryProvider>
           </AntdProvider>
         </AntdRegistry>

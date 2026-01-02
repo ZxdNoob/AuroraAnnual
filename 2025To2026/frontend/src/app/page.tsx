@@ -90,32 +90,45 @@ export default function HomePage() {
     )
   }
 
-  // 如果出错或未登录，使用默认数据
-  const userStats = userProfileData
-    ? {
-        totalPoints: userProfileData.profile.totalPoints,
-        currentLevel: userProfileData.profile.currentLevel,
-        currentExp: userProfileData.profile.currentExp,
-        nextLevelExp: userProfileData.profile.nextLevelExp,
-        currentRank: userProfileData.rank?.name || '倔强黑铁',
-        rankStars: userProfileData.rank ? Math.min(5, Math.max(1, userProfileData.profile.totalCheckInDays % 5 || 1)) : 1,
-        consecutiveCheckInDays: userProfileData.profile.consecutiveCheckInDays,
-        totalCheckInDays: userProfileData.profile.totalCheckInDays,
-        badgesCount: 0,
-        season: userProfileData.rank?.season || 1,
-      }
-    : {
-        totalPoints: 0,
-        currentLevel: 1,
-        currentExp: 0,
-        nextLevelExp: 100,
-        currentRank: '倔强黑铁',
-        rankStars: 1,
-        consecutiveCheckInDays: 0,
-        totalCheckInDays: 0,
-        badgesCount: 0,
-        season: 1,
-      }
+  // 如果未登录或数据加载失败，显示提示
+  if (!userProfileData) {
+    return (
+      <MainLayout>
+        <div className={styles.container}>
+          <Card className={styles.heroCard}>
+            <div style={{ textAlign: 'center', padding: '48px 24px' }}>
+              <h2 style={{ color: 'white', marginBottom: '16px' }}>请先登录</h2>
+              <p style={{ color: 'rgba(255, 255, 255, 0.9)', marginBottom: '24px' }}>
+                登录后即可查看您的学习数据和统计信息
+              </p>
+              <Space>
+                <Button type="default" size="large" href="/login" style={{ background: 'white' }}>
+                  登录
+                </Button>
+                <Button type="default" size="large" href="/register" style={{ background: 'rgba(255, 255, 255, 0.9)' }}>
+                  注册
+                </Button>
+              </Space>
+            </div>
+          </Card>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  // 使用真实用户数据
+  const userStats = {
+    totalPoints: userProfileData.profile.totalPoints,
+    currentLevel: userProfileData.profile.currentLevel,
+    currentExp: userProfileData.profile.currentExp,
+    nextLevelExp: userProfileData.profile.nextLevelExp,
+    currentRank: userProfileData.rank?.name || '倔强黑铁',
+    rankStars: userProfileData.rank ? Math.min(5, Math.max(1, userProfileData.profile.totalCheckInDays % 5 || 1)) : 1,
+    consecutiveCheckInDays: userProfileData.profile.consecutiveCheckInDays,
+    totalCheckInDays: userProfileData.profile.totalCheckInDays,
+    badgesCount: 0,
+    season: userProfileData.rank?.season || 1,
+  }
 
   return (
     <MainLayout>

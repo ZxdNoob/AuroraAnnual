@@ -1,0 +1,154 @@
+// ============================================
+// 汉堡菜单图标动画样式（业界顶级设计）
+// ============================================
+// 
+// 设计理念：
+// - 使用三条横杠的经典汉堡菜单设计（业界标准）
+// - 采用 Material Design 缓动函数，动画流畅自然
+// - 使用 GPU 加速的 transform 属性，性能优异
+// - 精细的视觉设计：合适的间距、圆角、颜色
+// - 分别控制不同属性的过渡时间，让动画更自然
+//
+// 动画原理：
+// 1. 初始状态：三条横杠等距排列（顶部、中间、底部）
+// 2. 打开状态：
+//    - 第一条横杠：移动到中间并旋转 45 度
+//    - 第二条横杠：淡出消失（opacity: 0）
+//    - 第三条横杠：移动到中间并旋转 -45 度
+// 3. 最终形成完美的 X 形状
+//
+// 性能优化：
+// - 使用 transform 和 opacity 属性（GPU 加速）
+// - 使用 will-change 提示浏览器优化
+// - 避免使用 left/top 等触发重排的属性
+//
+
+.hamburgerIcon {
+  // ============================================
+  // 容器样式
+  // ============================================
+  // 设计说明：
+  // - 使用相对定位作为绝对定位子元素的定位参考
+  // - 宽度 24px，高度 18px，提供足够的空间让横杠移动和旋转
+  // - 使用 block 显示，避免 flex 布局带来的额外计算
+  // - 添加 will-change 提示浏览器优化动画性能
+  //
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  will-change: transform;
+  
+  // 触摸设备优化：增大点击区域，提升用户体验
+  // 注意：点击区域由父组件 Button 控制，这里不需要额外处理
+  // 保持简洁，避免不必要的伪元素影响性能
+}
+
+.line {
+  // ============================================
+  // 横杠基础样式
+  // ============================================
+  // 设计说明：
+  // - 使用绝对定位，初始状态三条横杠等距排列
+  // - 宽度 100%，高度 2.5px（更粗一些，视觉更清晰）
+  // - 使用圆角 2px，让横杠更柔和
+  // - 颜色使用 rgba(0, 0, 0, 0.85)，确保对比度
+  // - 使用 transform 和 opacity 属性（GPU 加速）
+  // - 分别控制不同属性的过渡时间，让动画更自然
+  //    - transform: 0.3s（位置和旋转变化）
+  //    - opacity: 0.2s（淡出更快，更自然）
+  // - 使用 Material Design 缓动函数：cubic-bezier(0.4, 0, 0.2, 1)
+  //   这是业界标准的缓动函数，提供流畅自然的动画效果
+  //
+  width: 100%;
+  height: 2.5px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transform-origin: center;
+  will-change: transform, opacity;
+  
+  // 分别控制不同属性的过渡时间，让动画更自然
+  // transform 变化需要更长时间（0.3s），让旋转和移动更流畅
+  transition: 
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // 第一条横杠：初始位置在顶部
+  &:nth-child(1) {
+    top: 0;
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  // 第二条横杠：初始位置在中间
+  &:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    opacity: 1;
+  }
+
+  // 第三条横杠：初始位置在底部
+  &:nth-child(3) {
+    bottom: 0;
+    top: auto;
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+// ============================================
+// 打开状态：三条横杠形成 X 形状
+// ============================================
+.hamburgerIcon.isOpen {
+  .line {
+    // 第一条横杠：移动到中间并旋转 45 度
+    // 形成 X 的右上到左下部分
+    &:nth-child(1) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+      opacity: 1;
+    }
+
+    // 第二条横杠：淡出消失
+    // 这是三条横杠设计的精髓：中间横杠消失，让 X 形状更清晰
+    // 使用 opacity 和 scale 组合，让淡出效果更自然
+    &:nth-child(2) {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.8);
+      // 淡出动画稍快一些，让 X 形状更快显现
+      transition: 
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    // 第三条横杠：移动到中间并旋转 -45 度
+    // 形成 X 的左上到右下部分
+    &:nth-child(3) {
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%) rotate(-45deg);
+      opacity: 1;
+    }
+  }
+}
+
+// ============================================
+// 可访问性优化
+// ============================================
+.hamburgerIcon {
+  // 键盘导航支持
+  &:focus {
+    outline: 2px solid rgba(99, 102, 241, 0.5);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  // 移除默认的按钮样式（如果作为按钮使用）
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+

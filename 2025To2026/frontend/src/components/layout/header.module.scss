@@ -134,6 +134,35 @@
   }
 }
 
+.userActions {
+  display: flex;
+  align-items: center;
+  margin-left: auto; // 使用 auto 让用户操作区域靠右对齐（当没有菜单时）
+
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+// 当有菜单时，用户操作区域应该有合适的间距
+.desktopMenu + .userActions {
+  margin-left: 16px;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  height: auto;
+}
+
+.userName {
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
 .mobileMenuButton {
   display: none !important;
   height: 40px !important;

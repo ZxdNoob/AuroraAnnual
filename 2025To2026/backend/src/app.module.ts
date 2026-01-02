@@ -13,6 +13,7 @@ import { LotteryModule } from './lottery/lottery.module'
 import { CodeModule } from './code/code.module'
 import { ActivitiesModule } from './activities/activities.module'
 import { ItemsModule } from './items/items.module'
+import { UsersModule } from './users/users.module'
 
 /**
  * 应用根模块
@@ -46,6 +47,8 @@ import { ItemsModule } from './items/items.module'
     ActivitiesModule,
     // 道具模块
     ItemsModule,
+    // 用户模块
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [

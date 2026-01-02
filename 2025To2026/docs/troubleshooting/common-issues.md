@@ -119,6 +119,38 @@ npm run dev
 
 **详细解决方案**：请查看 [项目启动问题详细记录](./2026-01-01-project-startup-issues.md)
 
+### 8. React Hydration 错误
+
+**问题描述**：应用运行时出现 "Hydration failed" 错误，错误信息显示服务端和客户端渲染的 HTML 不匹配
+
+**常见原因**：
+- 认证状态在服务端和客户端不一致（服务端无法访问 localStorage）
+- Button 的 `loading` 属性在服务端和客户端不一致
+- 条件渲染依赖客户端状态（如 `isAuthenticated`），导致服务端和客户端渲染不同
+
+**快速解决方案**：
+
+```bash
+# 1. 清除 Next.js 缓存
+cd frontend
+rm -rf .next
+
+# 2. 重启开发服务器
+npm run dev
+# 或
+yarn dev
+
+# 3. 硬刷新浏览器（Cmd+Shift+R 或 Ctrl+Shift+R）
+```
+
+**代码修复要点**：
+- 使用 `mounted` 状态标记客户端 hydration 完成
+- 在客户端 hydration 完成之前，不渲染依赖客户端状态的内容
+- Button 的 `loading` 属性使用 `loading={mounted && isLoading}`
+- 使用 `suppressHydrationWarning` 抑制预期的 hydration 警告
+
+**详细解决方案**：请查看 [React Hydration 错误详细记录](./2026-01-02-react-hydration-error.md)
+
 ---
 
-**最后更新时间**：2026-01-01 20:54:18
+**最后更新时间**：2026-01-02 21:56:28

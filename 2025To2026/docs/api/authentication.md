@@ -212,5 +212,91 @@ const protectedResponse = await fetch('http://localhost:4000/api/checkin', {
 
 ---
 
-**最后更新时间**：2026-01-01 14:46:07
+## 用户管理接口
+
+### 1. 获取当前用户信息
+
+**接口**：`GET /api/users/me`
+
+**描述**：获取当前登录用户的基本信息
+
+**认证**：需要（Bearer Token）
+
+**请求参数**：无
+
+**响应示例**（200 OK）：
+
+```json
+{
+  "id": "1",
+  "email": "user@example.com",
+  "username": "username",
+  "isActive": true,
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z"
+}
+```
+
+**错误响应**：
+
+- `401 Unauthorized`：未提供有效的 Token 或 Token 已过期
+
+### 2. 获取当前用户资料
+
+**接口**：`GET /api/users/me/profile`
+
+**描述**：获取当前登录用户的详细资料信息（包括积分、等级、段位等）
+
+**认证**：需要（Bearer Token）
+
+**请求参数**：无
+
+**响应示例**（200 OK）：
+
+```json
+{
+  "id": "1",
+  "userId": "1",
+  "nickname": "用户昵称",
+  "avatar": "https://example.com/avatar.jpg",
+  "bio": "个人简介",
+  "totalPoints": 1000,
+  "currentLevel": 5,
+  "currentExp": 500,
+  "nextLevelExp": 1000,
+  "consecutiveCheckInDays": 7,
+  "totalCheckInDays": 30,
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z"
+}
+```
+
+**错误响应**：
+
+- `401 Unauthorized`：未提供有效的 Token 或 Token 已过期
+- `404 Not Found`：用户资料不存在
+
+**使用示例**：
+
+```javascript
+// 获取当前用户信息
+const userResponse = await fetch('http://localhost:4000/api/users/me', {
+  headers: {
+    'Authorization': `Bearer ${token}`,
+  },
+});
+const userData = await userResponse.json();
+
+// 获取当前用户资料
+const profileResponse = await fetch('http://localhost:4000/api/users/me/profile', {
+  headers: {
+    'Authorization': `Bearer ${token}`,
+  },
+});
+const profileData = await profileResponse.json();
+```
+
+---
+
+**最后更新时间**：2026-01-02 23:13:17
 

@@ -14,6 +14,7 @@ docs/
 ├── features/                    # 功能文档
 ├── learning-notes/              # 学习笔记
 ├── configuration/               # 配置解读
+├── source-code/                 # 源码解读
 ├── troubleshooting/             # 踩坑记录
 ├── deep-dive/                   # 底层原理
 └── version-updates/           # 版本更新
@@ -144,6 +145,11 @@ docs/
 | 文件名 | 内容说明 |
 |--------|---------|
 | `css-preprocessor.md` | CSS 预编译语言配置说明，详细介绍 SCSS 配置和使用规范 |
+| `next-config.md` | Next.js 配置文件逐行解读，详细解释每个配置项的作用、原因和影响 |
+| `tsconfig-frontend.md` | 前端 TypeScript 配置文件逐行解读，详细解释每个编译选项的作用和影响 |
+| `tsconfig-backend.md` | 后端 TypeScript 配置文件逐行解读，详细解释每个编译选项的作用和影响（特别是 NestJS 装饰器支持） |
+| `next-config.md` | Next.js 配置文件逐行解读，详细解释每个配置项的作用、原因和影响 |
+| `tsconfig-frontend.md` | 前端 TypeScript 配置文件逐行解读，详细解释每个编译选项的作用和影响 |
 
 **适用场景**：
 - 理解配置文件的作用
@@ -152,10 +158,68 @@ docs/
 
 **快速链接**：
 - [CSS 预编译语言配置](./configuration/css-preprocessor.md)
+- [Next.js 配置解读](./configuration/next-config.md)
+- [前端 TypeScript 配置解读](./configuration/tsconfig-frontend.md)
+- [后端 TypeScript 配置解读](./configuration/tsconfig-backend.md)
 
 ---
 
-### 6. 踩坑记录（`troubleshooting/`）
+### 6. 源码解读（`source-code/`）
+
+**目录说明**：包含项目核心代码的逐行解读，帮助深入理解代码实现原理、设计思想和最佳实践。
+
+**文档列表**：
+
+| 文件名 | 内容说明 |
+|--------|---------|
+| `frontend/auth-context.md` | 前端认证上下文（AuthContext）源码逐行解读，详细解释认证状态管理的实现原理 |
+| `frontend/require-auth.md` | 前端路由保护组件（RequireAuth）源码逐行解读，详细解释认证检查和重定向逻辑 |
+| `frontend/header-component.md` | Header 组件源码逐行解读，详细解释导航菜单、用户操作、移动端菜单等实现 |
+| `frontend/api-utils.md` | API 工具函数源码逐行解读，详细解释 GET、POST、PUT、DELETE 等 HTTP 方法实现 |
+| `frontend/use-user-profile.md` | 用户资料 Hook 源码逐行解读，详细解释 React Query 数据获取和缓存机制 |
+| `frontend/login-page.md` | 登录页面源码逐行解读，详细解释表单验证、提交处理、重定向逻辑 |
+| `frontend/register-page.md` | 注册页面源码逐行解读，详细解释表单验证、密码确认、提交处理 |
+| `frontend/hamburger-icon.md` | 汉堡菜单图标组件源码逐行解读，详细解释动画实现和性能优化 |
+| `backend/auth-service.md` | 后端认证服务（AuthService）源码逐行解读，详细解释用户注册、登录、JWT Token 生成的实现原理 |
+| `backend/auth-controller.md` | 后端认证控制器（AuthController）源码逐行解读，详细解释路由定义和 Swagger 文档生成 |
+| `backend/users-service.md` | 用户服务（UsersService）源码逐行解读，详细解释用户信息和用户资料获取 |
+| `backend/users-controller.md` | 用户控制器（UsersController）源码逐行解读，详细解释路由保护和用户信息获取 |
+| `backend/prisma-service.md` | Prisma 服务源码逐行解读，详细解释数据库连接生命周期管理 |
+| `backend/jwt-strategy.md` | JWT 策略源码逐行解读，详细解释 Token 验证和用户信息提取 |
+| `backend/jwt-auth-guard.md` | JWT 认证守卫源码逐行解读，详细解释路由保护机制 |
+| `backend/current-user-decorator.md` | 当前用户装饰器源码逐行解读，详细解释参数提取机制 |
+| `backend/dto-validation.md` | DTO 数据验证源码逐行解读，详细解释数据验证和 Swagger 文档生成 |
+
+**适用场景**：
+- 深入理解核心代码实现
+- 学习代码设计思想
+- 理解最佳实践
+
+**快速链接**：
+- [源码解读文档索引](./source-code/README.md)
+- **前端源码解读**：
+  - [认证上下文](./source-code/frontend/auth-context.md)
+  - [路由保护组件](./source-code/frontend/require-auth.md)
+  - [Header 组件](./source-code/frontend/header-component.md)
+  - [API 工具函数](./source-code/frontend/api-utils.md)
+  - [用户资料 Hook](./source-code/frontend/use-user-profile.md)
+  - [登录页面](./source-code/frontend/login-page.md)
+  - [注册页面](./source-code/frontend/register-page.md)
+  - [汉堡菜单图标](./source-code/frontend/hamburger-icon.md)
+- **后端源码解读**：
+  - [认证服务](./source-code/backend/auth-service.md)
+  - [认证控制器](./source-code/backend/auth-controller.md)
+  - [用户服务](./source-code/backend/users-service.md)
+  - [用户控制器](./source-code/backend/users-controller.md)
+  - [Prisma 服务](./source-code/backend/prisma-service.md)
+  - [JWT 策略](./source-code/backend/jwt-strategy.md)
+  - [JWT 认证守卫](./source-code/backend/jwt-auth-guard.md)
+  - [当前用户装饰器](./source-code/backend/current-user-decorator.md)
+  - [DTO 验证](./source-code/backend/dto-validation.md)
+
+---
+
+### 7. 踩坑记录（`troubleshooting/`）
 
 **目录说明**：包含开发过程中遇到的问题、分析过程和解决方案。
 
@@ -177,7 +241,7 @@ docs/
 
 ---
 
-### 7. 底层原理（`deep-dive/`）
+### 8. 底层原理（`deep-dive/`）
 
 **目录说明**：包含技术原理深入分析，包括算法实现、设计思想、性能优化等。
 
@@ -203,7 +267,7 @@ docs/
 
 ---
 
-### 8. 版本更新（`version-updates/`）
+### 9. 版本更新（`version-updates/`）
 
 **目录说明**：包含版本更新和依赖变更文档，详细记录每次版本更新的内容、原因和影响。
 
@@ -211,6 +275,8 @@ docs/
 
 | 文件名 | 内容说明 |
 |--------|---------|
+| `v0.3.1-comprehensive-source-code-documentation.md` | 版本 0.3.0 文档更新（源码解读文档创建），包括 21 个源码解读文档（前端 8 个、后端 9 个、配置 4 个），覆盖核心模块（注：本次更新仅涉及文档，未修改代码，版本号保持不变） |
+| `v0.3.0-user-authentication-and-version-management.md` | 版本 0.3.0 用户认证和版本管理优化文档，包括真实用户注册登录系统、Header 组件优化、React Hydration 错误修复、版本管理优化等 |
 | `v0.2.1-ui-redesign.md` | 版本 0.2.1 UI 重新设计文档，包括配色系统优化、布局修复、响应式改进等 |
 | `v0.2.0-logo-and-ui-optimization.md` | 版本 0.2.0 Logo 和 UI 优化文档，包括 Logo 设计、favicon 创建、Hydration 错误修复、UI 样式优化等 |
 | `v0.1.0-initialization.md` | 版本 0.1.0 初始化文档，包括更新内容、依赖变更、升级指南等 |
@@ -221,6 +287,8 @@ docs/
 - 升级项目版本
 
 **快速链接**：
+- [版本 0.3.1 源码解读文档创建](./version-updates/v0.3.1-comprehensive-source-code-documentation.md)
+- [版本 0.3.0 用户认证和版本管理优化](./version-updates/v0.3.0-user-authentication-and-version-management.md)
 - [版本 0.2.1 UI 重新设计](./version-updates/v0.2.1-ui-redesign.md)
 - [版本 0.2.0 Logo 和 UI 优化](./version-updates/v0.2.0-logo-and-ui-optimization.md)
 - [版本 0.1.0 初始化](./version-updates/v0.1.0-initialization.md)
@@ -292,12 +360,13 @@ docs/
 - **API 文档**：10 个
 - **功能文档**：4 个
 - **学习笔记**：4 个
-- **配置解读**：1 个
+- **配置解读**：4 个
+- **源码解读**：16 个
 - **踩坑记录**：3 个
 - **底层原理**：4 个
-- **版本更新**：3 个
+- **版本更新**：5 个
 
-**总计**：32 个文档文件
+**总计**：56 个文档文件
 
 ### 文档覆盖范围
 
@@ -345,5 +414,5 @@ docs/
 
 ---
 
-**最后更新时间**：2026-01-01 23:32:16
+**最后更新时间**：2026-01-02 23:13:17
 
